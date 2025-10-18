@@ -1,0 +1,221 @@
+<mat-sidenav-container class="oferente-container">
+  <!-- Sidebar Navigation -->
+  <mat-sidenav
+    #sidenav
+    [mode]="sidenavMode()"
+    [opened]="sidenavOpened()"
+    class="oferente-sidenav"
+    role="navigation"
+    [attr.aria-label]="'Menú principal de navegación'"
+  >
+    <!-- Sidebar Header -->
+    <div class="sidenav-header">
+      <div class="brand">
+        <mat-icon class="brand-icon" aria-hidden="true">storefront</mat-icon>
+        <h2 class="brand-title">Mi Negocio</h2>
+      </div>
+    </div>
+
+    <mat-divider role="separator"></mat-divider>
+
+    <!-- Navigation Menu -->
+    <mat-nav-list class="nav-menu">
+      @for (item of menuItems; track item.id) {
+        <a
+          mat-list-item
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: false}"
+          [attr.aria-label]="item.ariaLabel || item.label"
+          [attr.aria-current]="isActiveRoute(item.route) ? 'page' : null"
+        >
+          <mat-icon matListItemIcon [attr.aria-hidden]="true">{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+          @if (item.badge) {
+            <span
+              class="badge"
+              matListItemMeta
+              [attr.aria-label]="item.badge + ' elementos nuevos'"
+            >
+              {{ item.badge }}
+            </span>
+          }
+        </a>
+      }
+    </mat-nav-list>
+
+    <!-- Sidebar Footer -->
+    <div class="sidenav-footer">
+      <mat-divider role="separator"></mat-divider>
+      <div class="plan-info" role="status" aria-label="Información del plan">
+        <mat-icon aria-hidden="true">workspace_premium</mat-icon>
+        <div>
+          <div class="plan-name">Plan Premium</div>
+          <div class="plan-status">Activo hasta 31/12/2025</div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main Content Area -->
+  <mat-sidenav-content>
+    <!-- Top Toolbar -->
+    <mat-toolbar
+      class="oferente-toolbar"
+      color="primary"
+      role="banner"
+    >
+      <!-- Menu Toggle Button -->
+      <button
+        mat-icon-button
+        (click)="toggleSidenav()"
+        matTooltip="Alternar menú de navegación"
+        aria-label="Alternar menú de navegación"
+        [attr.aria-expanded]="sidenavOpened()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <!-- Breadcrumb Navigation -->
+      <nav class="breadcrumb" aria-label="Ruta de navegación">
+        <mat-icon class="breadcrumb-icon" aria-hidden="true">folder</mat-icon>
+        <span class="breadcrumb-text">Panel / Productos</span>
+      </nav>
+
+      <span class="spacer" aria-hidden="true"></span>
+
+      <!-- User Actions Section -->
+      <div class="user-section">
+        <!-- Accessibility Menu Button -->
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="accessibilityMenu"
+          matTooltip="Opciones de accesibilidad"
+          aria-label="Abrir menú de accesibilidad"
+          aria-haspopup="true"
+        >
+          <mat-icon>accessibility</mat-icon>
+        </button>
+
+        <!-- User Profile Menu Button -->
+        <button
+          mat-button
+          [matMenuTriggerFor]="userMenu"
+          class="user-button"
+          aria-label="Menú de usuario"
+          aria-haspopup="true"
+        >
+          <div class="user-avatar" aria-hidden="true">
+            @if (currentUser().avatarUrl) {
+              <img
+                [src]="currentUser().avatarUrl"
+                [alt]="'Foto de perfil de ' + currentUser().name"
+              />
+            } @else {
+              <mat-icon>account_circle</mat-icon>
+            }
+          </div>
+          <span class="user-name">{{ currentUser().name }}</span>
+          <mat-icon aria-hidden="true">arrow_drop_down</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar>
+
+    <!-- Page Content -->
+    <main class="page-content" role="main">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- Accessibility Menu -->
+<mat-menu #accessibilityMenu="matMenu" aria-label="Opciones de accesibilidad">
+  <button
+    mat-menu-item
+    (click)="increaseFontSize()"
+    aria-label="Aumentar tamaño de texto"
+  >
+    <mat-icon aria-hidden="true">text_increase</mat-icon>
+    <span>Aumentar texto</span>
+  </button>
+  <button
+    mat-menu-item
+    (click)="decreaseFontSize()"
+    aria-label="Disminuir tamaño de texto"
+  >
+    <mat-icon aria-hidden="true">text_decrease</mat-icon>
+    <span>Disminuir texto</span>
+  </button>
+  <button
+    mat-menu-item
+    (click)="toggleHighContrast()"
+    aria-label="Alternar alto contraste"
+  >
+    <mat-icon aria-hidden="true">contrast</mat-icon>
+    <span>Alto contraste</span>
+  </button>
+  <button
+    mat-menu-item
+    (click)="toggleDarkMode()"
+    aria-label="Alternar modo oscuro"
+  >
+    <mat-icon aria-hidden="true">invert_colors</mat-icon>
+    <span>Modo oscuro</span>
+  </button>
+</mat-menu>
+
+<!-- User Menu -->
+<mat-menu #userMenu="matMenu" aria-label="Menú de usuario">
+  <div class="user-menu-header" role="presentation">
+    <div class="user-menu-name">{{ currentUser().name }}</div>
+    <div class="user-menu-email">{{ currentUser().email }}</div>
+  </div>
+  <mat-divider role="separator"></mat-divider>
+
+  <button
+    mat-menu-item
+    routerLink="/oferente/profile"
+    aria-label="Ir a mi perfil"
+  >
+    <mat-icon aria-hidden="true">person</mat-icon>
+    <span>Mi perfil</span>
+  </button>
+
+  <button
+    mat-menu-item
+    routerLink="/oferente/settings"
+    aria-label="Ir a configuración"
+  >
+    <mat-icon aria-hidden="true">settings</mat-icon>
+    <span>Configuración</span>
+  </button>
+
+  <button
+    mat-menu-item
+    routerLink="/oferente/subscription"
+    aria-label="Ver mi plan de suscripción"
+  >
+    <mat-icon aria-hidden="true">credit_card</mat-icon>
+    <span>Mi plan</span>
+  </button>
+
+  <mat-divider role="separator"></mat-divider>
+
+  <button
+    mat-menu-item
+    routerLink="/oferente/help"
+    aria-label="Obtener ayuda"
+  >
+    <mat-icon aria-hidden="true">help</mat-icon>
+    <span>Ayuda</span>
+  </button>
+
+  <button
+    mat-menu-item
+    (click)="logout()"
+    aria-label="Cerrar sesión"
+  >
+    <mat-icon aria-hidden="true">logout</mat-icon>
+    <span>Cerrar sesión</span>
+  </button>
+</mat-menu>

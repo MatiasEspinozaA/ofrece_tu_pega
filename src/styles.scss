@@ -6,6 +6,9 @@
 // Bootstrap (only grid and spacing utilities)
 @use 'bootstrap/scss/bootstrap-grid' as bootstrap;
 
+// Accessibility Styles
+@use './app/shared/styles/accessibility.scss';
+
 // CSS Custom Properties (Design Tokens)
 @import './app/shared/styles/tokens.css';
 

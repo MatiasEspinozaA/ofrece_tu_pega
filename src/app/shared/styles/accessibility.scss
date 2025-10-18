@@ -1,0 +1,67 @@
+/**
+ * Accessibility Styles
+ * Global accessibility features for the application
+ */
+
+// Font Size Classes
+html.font-small {
+  font-size: 14px;
+}
+
+html.font-normal {
+  font-size: 16px;
+}
+
+html.font-large {
+  font-size: 18px;
+}
+
+// High Contrast Mode
+html.high-contrast {
+  --color-primary: #000080;
+  --color-accent: #ff0000;
+  --color-warn: #ff0000;
+
+  * {
+    border-color: #000 !important;
+  }
+
+  button,
+  a {
+    text-decoration: underline;
+  }
+}
+
+// Dark Theme
+html.dark-theme {
+  --color-primary: #bb86fc;
+  --color-accent: #03dac6;
+  --color-warn: #cf6679;
+
+  body {
+    background-color: #121212;
+    color: #ffffff;
+  }
+}
+
+// Focus Visible Styles
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+// Skip to Main Content Link
+.skip-to-main {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+
+  &:focus {
+    top: 0;
+  }
+}
