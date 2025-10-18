@@ -1,0 +1,26 @@
+/* Global styles - Imported only once */
+
+// Material Theme (Material 3)
+@use './app/shared/styles/material-theme.scss';
+
+// Bootstrap (only grid and spacing utilities)
+@use 'bootstrap/scss/bootstrap-grid' as bootstrap;
+
+// CSS Custom Properties (Design Tokens)
+@import './app/shared/styles/tokens.css';
+
+/* Base reset and global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+}

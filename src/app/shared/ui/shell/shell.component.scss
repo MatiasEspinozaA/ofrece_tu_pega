@@ -1,0 +1,19 @@
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-index-sticky);
+}
+
+.app-title {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.app-container {
+  padding: var(--spacing-lg);
+  min-height: calc(100vh - 64px);
+}
