@@ -6,7 +6,7 @@
 /**
  * Available theme identifiers
  */
-export type ThemeId = 'nature' | 'ocean' | 'fire' | 'carbon' | 'snow' | 'violet';
+export type ThemeId = 'nature' | 'ocean' | 'fire' | 'carbon' | 'snow' | 'violet' | 'sunshine' | 'sunset';
 
 /**
  * Theme display modes

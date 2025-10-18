@@ -87,6 +87,28 @@
   --border-radius-lg: 12px;
 }
 
+/* Sunshine Theme: Warm and cheerful */
+[data-theme="sunshine"] {
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+}
+
+[data-theme="sunshine"] .mat-mdc-card,
+[data-theme="sunshine"] .mat-card {
+  box-shadow: 0 2px 8px rgba(249, 168, 37, 0.15);
+}
+
+/* Sunset Theme: Warm and inviting */
+[data-theme="sunset"] {
+  --border-radius-md: 10px;
+  --border-radius-lg: 14px;
+}
+
+[data-theme="sunset"] .mat-mdc-card,
+[data-theme="sunset"] .mat-card {
+  box-shadow: 0 2px 8px rgba(245, 124, 0, 0.15);
+}
+
 /* === DARK MODE GLOBAL ADJUSTMENTS === */
 [data-mode="dark"] {
   color-scheme: dark;
