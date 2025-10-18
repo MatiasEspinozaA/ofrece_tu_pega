@@ -17,6 +17,9 @@
   // Sidebar Header
   .sidenav-header {
     padding: var(--spacing-lg);
+    height: 80px; // Same as toolbar height
+    display: flex;
+    align-items: center;
 
     .brand {
       display: flex;
@@ -119,6 +122,11 @@
   top: 0;
   z-index: 10;
   box-shadow: var(--shadow-sm);
+  min-height: 80px !important; // Match sidebar header height
+  height: 80px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 var(--spacing-md) !important;
 
   // Breadcrumb
   .breadcrumb {
@@ -242,7 +250,7 @@
 // Page Content
 .page-content {
   padding: var(--spacing-lg);
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 80px); // Subtract toolbar height
 }
 
 // User Menu Header
