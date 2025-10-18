@@ -7,12 +7,15 @@
 .oferente-container {
   height: 100vh;
   background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 // Sidebar Navigation
 .oferente-sidenav {
   width: 280px;
   border-right: 1px solid var(--border-color);
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
 
   // Sidebar Header
   .sidenav-header {
@@ -47,6 +50,11 @@
 
     a {
       transition: background-color 0.2s ease, border-left 0.2s ease;
+      color: var(--text-primary);
+
+      mat-icon {
+        color: var(--text-secondary);
+      }
 
       &:hover:not(.active) {
         background-color: var(--color-primary-bg);
@@ -71,7 +79,7 @@
     // Badge styling
     .badge {
       background-color: var(--color-accent);
-      color: white;
+      color: var(--text-inverse);
       padding: 2px 8px;
       border-radius: 12px;
       font-size: 12px;
@@ -127,6 +135,16 @@
   display: flex !important;
   align-items: center !important;
   padding: 0 var(--spacing-md) !important;
+  background-color: var(--color-primary) !important;
+  color: var(--text-inverse) !important;
+
+  button {
+    color: var(--text-inverse) !important;
+
+    mat-icon {
+      color: var(--text-inverse) !important;
+    }
+  }
 
   // Breadcrumb
   .breadcrumb {
@@ -134,16 +152,19 @@
     align-items: center;
     gap: var(--spacing-xs);
     margin-left: var(--spacing-md);
+    color: var(--text-inverse);
 
     .breadcrumb-icon {
       font-size: 20px;
       width: 20px;
       height: 20px;
+      color: var(--text-inverse);
     }
 
     .breadcrumb-text {
       font-size: 14px;
       font-weight: 500;
+      color: var(--text-inverse);
     }
   }
 
@@ -159,9 +180,15 @@
     gap: var(--spacing-xs);
 
     button {
+      color: var(--text-inverse) !important;
+
       &:focus-visible {
-        outline: 2px solid white;
+        outline: 2px solid var(--text-inverse);
         outline-offset: 2px;
+      }
+
+      mat-icon {
+        color: var(--text-inverse) !important;
       }
     }
 
@@ -176,7 +203,7 @@
       align-items: center !important;
       justify-content: flex-start !important;
       gap: var(--spacing-sm) !important;
-      color: white !important;
+      color: var(--text-inverse) !important;
       padding: 6px 12px !important;
       min-height: 48px !important;
       border-radius: 24px !important;
@@ -251,22 +278,24 @@
 .page-content {
   padding: var(--spacing-lg);
   min-height: calc(100vh - 80px); // Subtract toolbar height
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 // User Menu Header
 .user-menu-header {
   padding: var(--spacing-md);
-  background-color: var(--bg-secondary, #f5f5f5);
+  background-color: var(--bg-tertiary);
 
   .user-menu-name {
     font-weight: 600;
     font-size: 14px;
-    color: var(--text-primary, #333);
+    color: var(--text-primary);
   }
 
   .user-menu-email {
     font-size: 12px;
-    color: var(--text-secondary, #666);
+    color: var(--text-secondary);
     margin-top: 4px;
   }
 }
@@ -274,6 +303,7 @@
 // Accessibility Menu Styles
 ::ng-deep .accessibility-menu {
   min-width: 280px !important;
+  background-color: var(--bg-elevated);
 
   .accessibility-menu-header {
     display: flex;
@@ -281,7 +311,7 @@
     gap: var(--spacing-sm);
     padding: var(--spacing-md) var(--spacing-lg);
     background-color: var(--color-primary);
-    color: white;
+    color: var(--text-inverse);
     font-weight: 600;
     font-size: 14px;
 
@@ -289,6 +319,7 @@
       font-size: 20px;
       width: 20px;
       height: 20px;
+      color: var(--text-inverse);
     }
   }
 
@@ -297,7 +328,7 @@
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--text-secondary, #666);
+    color: var(--text-secondary);
     letter-spacing: 0.5px;
     margin-top: var(--spacing-xs);
   }
@@ -305,9 +336,22 @@
   .mat-mdc-menu-item {
     position: relative;
     min-height: 48px !important;
+    color: var(--text-primary);
 
     &[disabled] {
       opacity: 0.6;
+    }
+
+    mat-icon {
+      color: var(--text-secondary);
+    }
+
+    &:hover {
+      background-color: var(--color-primary-hover);
+
+      mat-icon {
+        color: var(--color-primary);
+      }
     }
 
     .status-badge {
@@ -320,28 +364,32 @@
       letter-spacing: 0.5px;
 
       &.on {
-        background-color: var(--color-success, #4caf50);
-        color: white;
+        background-color: var(--color-success);
+        color: var(--text-inverse);
       }
 
       &.off {
-        background-color: var(--bg-tertiary, #e0e0e0);
-        color: var(--text-secondary, #666);
+        background-color: var(--bg-tertiary);
+        color: var(--text-secondary);
       }
 
       &.active {
         background-color: var(--color-primary);
-        color: white;
+        color: var(--text-inverse);
       }
     }
   }
 
   .reset-button {
-    color: var(--color-warn, #f44336);
+    color: var(--color-warn);
     font-weight: 500;
 
     mat-icon {
-      color: var(--color-warn, #f44336);
+      color: var(--color-warn);
+    }
+
+    &:hover {
+      background-color: rgba(244, 67, 54, 0.1);
     }
   }
 }
@@ -371,10 +419,21 @@
   }
 }
 
+// Global Material components for layout
+::ng-deep {
+  .mat-mdc-menu-panel {
+    background-color: var(--bg-elevated);
+  }
+
+  .mat-divider {
+    border-color: var(--border-color);
+  }
+}
+
 // Accessibility - High Contrast Mode
 @media (prefers-contrast: high) {
   .oferente-sidenav {
-    border-right-color: #000;
+    border-right-color: currentColor;
 
     .nav-menu a.active {
       border-left-width: 6px;
@@ -388,25 +447,6 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-// Dark Mode Support
-@media (prefers-color-scheme: dark) {
-  .oferente-container {
-    background-color: #1e1e1e;
-  }
-
-  .user-menu-header {
-    background-color: #2a2a2a;
-
-    .user-menu-name {
-      color: #fff;
-    }
-
-    .user-menu-email {
-      color: #ccc;
-    }
   }
 }
 

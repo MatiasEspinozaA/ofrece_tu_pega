@@ -163,7 +163,7 @@ html[data-mode="dark"],
   --text-primary: #ffffff;
   --text-secondary: #b3b3b3;
   --text-disabled: #666666;
-  --text-inverse: #000000;
+  --text-inverse: #ffffff;
 
   // Border colors
   --border-color: #333333;
@@ -285,12 +285,39 @@ html[data-mode="dark"],
     background-color: var(--bg-primary) !important;
   }
 
+  .oferente-toolbar {
+    background-color: var(--color-primary) !important;
+    color: var(--text-inverse) !important;
+
+    button, mat-icon, .breadcrumb, .breadcrumb-text, .breadcrumb-icon, .user-name {
+      color: var(--text-inverse) !important;
+    }
+  }
+
   .oferente-sidenav {
-    background-color: var(--bg-secondary) !important;
+    background-color: var(--bg-elevated) !important;
     border-right-color: var(--border-color) !important;
 
     .sidenav-header .brand {
       color: var(--color-primary) !important;
+
+      .brand-title {
+        color: var(--text-primary) !important;
+      }
+    }
+
+    .nav-menu a {
+      color: var(--text-primary) !important;
+
+      mat-icon {
+        color: var(--text-secondary) !important;
+      }
+
+      &.active {
+        mat-icon {
+          color: var(--color-primary) !important;
+        }
+      }
     }
 
     .plan-info {
@@ -307,7 +334,8 @@ html[data-mode="dark"],
   }
 
   .page-content {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
   }
 
   // Dashboard cards
@@ -628,6 +656,9 @@ html[data-mode="dark"],
 // Light Theme - Ensure proper colors
 html:not(.dark-theme),
 [data-mode="light"] {
+  // Override text-inverse for light mode (should be white, not black)
+  --text-inverse: #ffffff;
+
   body {
     background-color: var(--bg-secondary);
     color: var(--text-primary);
@@ -688,8 +719,20 @@ html:not(.dark-theme),
     }
   }
 
-  // Sidebar
+  // Layout specific
+  .oferente-toolbar {
+    background-color: var(--color-primary) !important;
+    color: var(--text-inverse) !important;
+
+    button, mat-icon, .breadcrumb, .breadcrumb-text, .breadcrumb-icon {
+      color: var(--text-inverse) !important;
+    }
+  }
+
   .oferente-sidenav {
+    background-color: var(--bg-elevated) !important;
+    border-right-color: var(--border-color) !important;
+
     .brand-title {
       color: var(--text-primary) !important;
     }
@@ -697,8 +740,12 @@ html:not(.dark-theme),
     .nav-menu a {
       color: var(--text-primary) !important;
 
-      &:not(.active) mat-icon {
+      mat-icon {
         color: var(--text-secondary) !important;
+      }
+
+      &.active mat-icon {
+        color: var(--color-primary) !important;
       }
     }
 
@@ -709,6 +756,11 @@ html:not(.dark-theme),
     .plan-status {
       color: var(--text-secondary) !important;
     }
+  }
+
+  .page-content {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
   }
 
   // Dashboard page in light mode

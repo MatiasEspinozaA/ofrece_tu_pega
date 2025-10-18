@@ -6,7 +6,9 @@
       "Bash(netstat -ano)",
       "Bash(findstr :4200)",
       "Bash(taskkill //F //PID 1952)",
-      "Bash(findstr /C:\"Application bundle\" /C:\"ERROR\" /C:\"WARNING\")"
+      "Bash(findstr /C:\"Application bundle\" /C:\"ERROR\" /C:\"WARNING\")",
+      "Bash(taskkill /F /PID 12816)",
+      "Bash(taskkill //F //PID 12816)"
     ],
     "deny": [],
     "ask": []
