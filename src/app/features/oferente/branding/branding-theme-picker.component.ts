@@ -143,8 +143,39 @@ const BRANDING_I18N = {
       mat-slide-toggle {
         display: inline-flex;
         align-items: center;
-        gap: var(--spacing-xs);
         color: var(--text-primary);
+
+        ::ng-deep {
+          .mdc-form-field {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+          }
+
+          .mdc-label {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding-left: var(--spacing-sm);
+            color: var(--text-primary);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            line-height: 1;
+
+            mat-icon {
+              font-size: 20px;
+              width: 20px;
+              height: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          }
+
+          .mdc-switch {
+            margin: 0;
+          }
+        }
       }
     }
 

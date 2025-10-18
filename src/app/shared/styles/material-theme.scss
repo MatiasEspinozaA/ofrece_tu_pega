@@ -85,5 +85,17 @@ html[data-mode="dark"],
     --mdc-switch-selected-handle-color: var(--color-primary);
     --mdc-switch-unselected-track-color: var(--border-color);
     --mdc-switch-unselected-handle-color: var(--text-secondary);
+
+    .mdc-form-field {
+      display: flex;
+      align-items: center;
+    }
+
+    .mdc-label {
+      display: flex;
+      align-items: center;
+      line-height: 1;
+      color: var(--text-primary);
+    }
   }
 }
