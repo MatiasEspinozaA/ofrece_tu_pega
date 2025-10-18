@@ -106,4 +106,22 @@
   --badge-info: var(--color-info);
   --badge-warning: #ff9800;
   --badge-error: var(--color-warn);
+
+  /* Tooltip Colors - Always black/white */
+  --mdc-plain-tooltip-container-color: #000000;
+  --mdc-plain-tooltip-supporting-text-color: #ffffff;
+}
+
+/* Global Tooltip Styles - Override Material defaults */
+.mat-mdc-tooltip,
+.mdc-tooltip,
+.mat-tooltip {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.mat-mdc-tooltip .mdc-tooltip__surface,
+.mdc-tooltip__surface {
+  background-color: #000000 !important;
+  color: #ffffff !important;
 }

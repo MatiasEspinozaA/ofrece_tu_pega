@@ -103,12 +103,12 @@ interface DashboardCard {
           margin: 0;
           font-size: 32px;
           font-weight: 500;
-          color: #333;
+          color: var(--text-primary);
         }
 
         .subtitle {
           margin: var(--spacing-xs) 0 0;
-          color: #666;
+          color: var(--text-secondary);
           font-size: 16px;
         }
       }
@@ -120,7 +120,7 @@ interface DashboardCard {
           margin: 0 0 var(--spacing-md) 0;
           font-size: 20px;
           font-weight: 500;
-          color: #333;
+          color: var(--text-primary);
         }
       }
 
@@ -158,14 +158,14 @@ interface DashboardCard {
 
             .stat-label {
               font-size: 14px;
-              color: #666;
+              color: var(--text-secondary);
               margin-bottom: 4px;
             }
 
             .stat-value {
               font-size: 28px;
               font-weight: 600;
-              color: #333;
+              color: var(--text-primary);
             }
 
             .stat-change {
@@ -208,7 +208,7 @@ interface DashboardCard {
 
           p {
             margin: 0;
-            color: #666;
+            color: var(--text-secondary);
             font-size: 14px;
           }
         }
@@ -247,12 +247,12 @@ interface DashboardCard {
 
             .activity-title {
               font-size: 14px;
-              color: #333;
+              color: var(--text-primary);
             }
 
             .activity-time {
               font-size: 12px;
-              color: #999;
+              color: var(--text-secondary);
               margin-top: 4px;
             }
           }
@@ -271,7 +271,7 @@ interface DashboardCard {
 
           p {
             margin-top: var(--spacing-md);
-            color: #999;
+            color: var(--text-secondary);
           }
         }
       }

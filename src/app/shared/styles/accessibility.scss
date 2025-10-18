@@ -138,9 +138,11 @@ html.high-contrast {
   }
 }
 
-// Dark Theme
-html.dark-theme {
-  // Dark theme color tokens
+// Dark Theme - Support both legacy class and new data-mode attribute
+html.dark-theme,
+html[data-mode="dark"],
+[data-mode="dark"] {
+  // Dark theme color tokens (fallback values, themes can override)
   --color-primary: #bb86fc;
   --color-accent: #03dac6;
   --color-warn: #cf6679;
@@ -151,13 +153,13 @@ html.dark-theme {
   --color-primary-bg: rgba(187, 134, 252, 0.1);
   --color-primary-hover: rgba(187, 134, 252, 0.15);
 
-  // Background colors
+  // Background colors (fallback values, themes can override)
   --bg-primary: #121212;
   --bg-secondary: #1e1e1e;
   --bg-tertiary: #2a2a2a;
   --bg-elevated: #2d2d2d;
 
-  // Text colors
+  // Text colors (fallback values, themes can override)
   --text-primary: #ffffff;
   --text-secondary: #b3b3b3;
   --text-disabled: #666666;
@@ -183,6 +185,12 @@ html.dark-theme {
     color: var(--text-primary);
   }
 
+}
+
+// Dark mode Material components - Applied when data-mode="dark" OR dark-theme class
+html.dark-theme,
+html[data-mode="dark"],
+[data-mode="dark"] {
   // Material components dark mode
   .mat-toolbar,
   .mat-sidenav {
@@ -445,10 +453,113 @@ html.dark-theme {
       background: var(--border-color-light);
     }
   }
+
+  // Branding page specific
+  .branding-page {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+
+    .page-header {
+      background-color: var(--bg-elevated) !important;
+      border-color: var(--border-color) !important;
+
+      h1 {
+        color: var(--text-primary) !important;
+
+        mat-icon {
+          color: var(--color-primary) !important;
+        }
+      }
+
+      .subtitle {
+        color: var(--text-secondary) !important;
+      }
+
+      mat-slide-toggle {
+        color: var(--text-primary) !important;
+
+        .mdc-label {
+          color: var(--text-primary) !important;
+        }
+
+        mat-icon {
+          color: var(--text-primary) !important;
+        }
+      }
+    }
+
+    .section-header {
+      h2 {
+        color: var(--text-primary) !important;
+      }
+
+      p {
+        color: var(--text-secondary) !important;
+      }
+    }
+  }
+
+  // Theme card component
+  .theme-card {
+    background-color: var(--bg-elevated) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+
+    .mat-mdc-card-title,
+    .mat-card-title {
+      color: var(--text-primary) !important;
+    }
+
+    .mat-mdc-card-subtitle,
+    .mat-card-subtitle {
+      color: var(--text-secondary) !important;
+    }
+
+    &.active {
+      border-color: var(--color-primary) !important;
+      box-shadow: 0 0 0 3px var(--color-primary-bg) !important;
+    }
+
+    &:hover {
+      border-color: var(--color-primary) !important;
+    }
+  }
+
+  // Preview panel
+  .preview-panel {
+    background-color: var(--bg-elevated) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+
+    .mat-mdc-card-title,
+    .mat-card-title {
+      color: var(--text-primary) !important;
+
+      mat-icon {
+        color: var(--color-primary) !important;
+      }
+    }
+
+    .mat-mdc-card-subtitle,
+    .mat-card-subtitle {
+      color: var(--text-secondary) !important;
+    }
+
+    .mock-app {
+      .mock-card-title {
+        color: var(--text-primary) !important;
+      }
+
+      .mock-card-subtitle {
+        color: var(--text-secondary) !important;
+      }
+    }
+  }
 }
 
 // Light Theme - Ensure proper colors
-html:not(.dark-theme) {
+html:not(.dark-theme),
+[data-mode="light"] {
   body {
     background-color: var(--bg-secondary);
     color: var(--text-primary);
@@ -463,45 +574,129 @@ html:not(.dark-theme) {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: #212121 !important;
+    color: var(--text-primary) !important;
+  }
+
+  // Sidebar
+  .oferente-sidenav {
+    .brand-title {
+      color: var(--text-primary) !important;
+    }
+
+    .nav-menu a {
+      color: var(--text-primary) !important;
+
+      &:not(.active) mat-icon {
+        color: var(--text-secondary) !important;
+      }
+    }
+
+    .plan-name {
+      color: var(--text-primary) !important;
+    }
+
+    .plan-status {
+      color: var(--text-secondary) !important;
+    }
   }
 
   // Dashboard page in light mode
   .dashboard-page {
     .page-header {
-      .subtitle {
-        color: #666666 !important;
+      h1 {
+        color: var(--text-primary) !important;
       }
+
+      .subtitle {
+        color: var(--text-secondary) !important;
+      }
+    }
+
+    .section h2 {
+      color: var(--text-primary) !important;
     }
 
     .activity-card {
       .activity-item {
         .activity-title {
-          color: #212121 !important;
+          color: var(--text-primary) !important;
         }
 
         .activity-time {
-          color: #757575 !important;
+          color: var(--text-secondary) !important;
         }
       }
     }
 
     .stat-card {
       .stat-label {
-        color: #666666 !important;
+        color: var(--text-secondary) !important;
       }
 
       .stat-value {
-        color: #212121 !important;
+        color: var(--text-primary) !important;
       }
     }
 
     .action-card {
+      h3 {
+        color: var(--text-primary) !important;
+      }
+
       p {
-        color: #666666 !important;
+        color: var(--text-secondary) !important;
       }
     }
   }
+
+  // Table/CRUD components
+  .crud-table {
+    th {
+      color: var(--text-primary) !important;
+    }
+
+    td {
+      color: var(--text-primary) !important;
+    }
+  }
+
+  .mat-mdc-header-cell {
+    color: var(--text-primary) !important;
+  }
+
+  .mat-mdc-cell {
+    color: var(--text-primary) !important;
+  }
+
+  // Generic text elements
+  p, span, label, div {
+    color: var(--text-primary);
+  }
+
+  .mat-mdc-card-title,
+  .mat-card-title {
+    color: var(--text-primary) !important;
+  }
+
+  .mat-mdc-card-subtitle,
+  .mat-card-subtitle {
+    color: var(--text-secondary) !important;
+  }
+}
+
+// Tooltips - Always black background with white text (regardless of theme)
+.mat-mdc-tooltip,
+.mdc-tooltip {
+  --mdc-plain-tooltip-container-color: #000000 !important;
+  --mdc-plain-tooltip-supporting-text-color: #ffffff !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.mat-mdc-tooltip .mdc-tooltip__surface,
+.mdc-tooltip__surface {
+  background-color: #000000 !important;
+  color: #ffffff !important;
 }
 
 // Focus Visible Styles

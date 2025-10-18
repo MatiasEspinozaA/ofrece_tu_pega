@@ -22,10 +22,27 @@ $theme: mat.define-theme((
 // Apply the theme to all components
 :root {
   @include mat.all-component-themes($theme);
+
+  // Global tooltip styles - always black background with white text
+  .mat-mdc-tooltip,
+  .mdc-tooltip {
+    --mdc-plain-tooltip-container-color: #000000 !important;
+    --mdc-plain-tooltip-supporting-text-color: #ffffff !important;
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  .mat-mdc-tooltip .mdc-tooltip__surface,
+  .mdc-tooltip__surface {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
 }
 
-// Dark theme - Applied when html has .dark-theme class
-html.dark-theme {
+// Dark theme - Applied when html has .dark-theme class OR data-mode="dark" attribute
+html.dark-theme,
+html[data-mode="dark"],
+[data-mode="dark"] {
   $dark-theme: mat.define-theme((
     color: (
       theme-type: dark,
@@ -46,5 +63,27 @@ html.dark-theme {
   .mat-card {
     background-color: var(--bg-secondary);
     color: var(--text-primary);
+  }
+
+  // Ensure Material buttons and form controls use theme colors
+  .mat-mdc-raised-button.mat-primary,
+  .mat-raised-button.mat-primary {
+    background-color: var(--color-primary) !important;
+    color: var(--text-inverse) !important;
+  }
+
+  // Material form fields
+  .mat-mdc-form-field {
+    --mdc-filled-text-field-container-color: var(--bg-tertiary);
+    --mdc-filled-text-field-label-text-color: var(--text-secondary);
+    --mdc-filled-text-field-input-text-color: var(--text-primary);
+  }
+
+  // Material slide toggle
+  .mat-mdc-slide-toggle {
+    --mdc-switch-selected-track-color: var(--color-primary);
+    --mdc-switch-selected-handle-color: var(--color-primary);
+    --mdc-switch-unselected-track-color: var(--border-color);
+    --mdc-switch-unselected-handle-color: var(--text-secondary);
   }
 }

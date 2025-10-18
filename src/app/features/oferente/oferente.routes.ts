@@ -45,8 +45,8 @@ export const OFERENTE_ROUTES: Routes = [
       },
       {
         path: 'branding',
-        loadComponent: () =>
-          import('./dashboard/dashboard.page').then(m => m.OferenteDashboardPageComponent), // Placeholder
+        loadChildren: () =>
+          import('./branding/branding.routes').then(m => m.BRANDING_ROUTES),
       },
       {
         path: 'analytics',

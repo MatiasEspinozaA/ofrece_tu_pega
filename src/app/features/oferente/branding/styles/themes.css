@@ -1,0 +1,188 @@
+/**
+ * Theme Styles
+ * CSS Custom Property overrides applied via data-theme and data-mode attributes
+ * Note: Most token values are applied programmatically by ThemeService
+ * This file contains structural overrides and ensures smooth transitions
+ */
+
+/* === BASE THEME TRANSITIONS === */
+:root,
+[data-theme] {
+  transition: background-color var(--transition-base),
+              color var(--transition-base),
+              border-color var(--transition-base);
+}
+
+/* === SMOOTH COLOR TRANSITIONS === */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: var(--transition-base, 300ms);
+  transition-timing-function: ease-in-out;
+}
+
+/* Prevent transition on page load */
+.no-transitions,
+.no-transitions * {
+  transition: none !important;
+}
+
+/* === THEME-SPECIFIC STRUCTURAL OVERRIDES === */
+
+/* Nature Theme: Organic feel */
+[data-theme="nature"] {
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+}
+
+[data-theme="nature"] .mat-mdc-card,
+[data-theme="nature"] .mat-card {
+  border-radius: var(--border-radius-lg);
+}
+
+/* Ocean Theme: Fluid shapes */
+[data-theme="ocean"] {
+  --border-radius-md: 16px;
+  --border-radius-lg: 20px;
+}
+
+[data-theme="ocean"] .mat-mdc-button,
+[data-theme="ocean"] button {
+  border-radius: var(--border-radius-full);
+}
+
+/* Fire Theme: Sharp edges */
+[data-theme="fire"] {
+  --border-radius-md: 4px;
+  --border-radius-lg: 8px;
+}
+
+/* Carbon Theme: Minimalist */
+[data-theme="carbon"] {
+  --border-radius-md: 0px;
+  --border-radius-lg: 4px;
+}
+
+[data-theme="carbon"] .mat-mdc-card,
+[data-theme="carbon"] .mat-card {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Snow Theme: Soft, elevated */
+[data-theme="snow"] {
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="snow"] .mat-mdc-card,
+[data-theme="snow"] .mat-card {
+  box-shadow: var(--shadow-md);
+}
+
+/* Violet Theme: Default, balanced */
+[data-theme="violet"] {
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+/* === DARK MODE GLOBAL ADJUSTMENTS === */
+[data-mode="dark"] {
+  color-scheme: dark;
+}
+
+[data-mode="dark"] .mat-mdc-card,
+[data-mode="dark"] .mat-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+[data-mode="dark"] img {
+  opacity: 0.9;
+}
+
+[data-mode="dark"] code,
+[data-mode="dark"] pre {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* === LIGHT MODE GLOBAL ADJUSTMENTS === */
+[data-mode="light"] {
+  color-scheme: light;
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  [data-theme] {
+    --border-color: currentColor;
+    --border-color-light: currentColor;
+    --border-color-dark: currentColor;
+  }
+
+  button,
+  .mat-mdc-button,
+  a {
+    border: 2px solid currentColor !important;
+  }
+}
+
+/* === THEME PREVIEW SPECIFIC STYLES === */
+.theme-preview-container {
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  transition: transform var(--transition-base);
+}
+
+.theme-preview-container:hover {
+  transform: scale(1.02);
+}
+
+/* === BRANDING PAGE SPECIFIC === */
+.branding-page {
+  background-color: var(--bg-secondary);
+  min-height: 100vh;
+  color: var(--text-primary);
+}
+
+.theme-card {
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-elevated);
+}
+
+.theme-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.theme-card.active {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-bg);
+}
+
+.preview-panel {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+/* === PRINT STYLES === */
+@media print {
+  [data-theme],
+  [data-mode] {
+    background: white !important;
+    color: black !important;
+  }
+}
