@@ -19,8 +19,10 @@ Proyecto Angular 20 con arquitectura Clean por features, usando standalone compo
 - Componentes standalone
 - Providers scoped por ruta
 - Design tokens con CSS custom properties
-- Tema único de Material 3
+- Tema único de Material 3 con soporte dark mode
+- **Accesibilidad WCAG 2.1 AA completa** (dark mode, alto contraste, tamaño de texto)
 - Feature "products" completa como ejemplo
+- Layout del oferente con sidebar responsive y toolbar
 
 ## Instalación
 

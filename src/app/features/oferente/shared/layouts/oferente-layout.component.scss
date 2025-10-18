@@ -6,13 +6,13 @@
 // Container
 .oferente-container {
   height: 100vh;
-  background-color: #f5f5f5;
+  background-color: var(--bg-secondary);
 }
 
 // Sidebar Navigation
 .oferente-sidenav {
   width: 280px;
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  border-right: 1px solid var(--border-color);
 
   // Sidebar Header
   .sidenav-header {
@@ -46,11 +46,11 @@
       transition: background-color 0.2s ease, border-left 0.2s ease;
 
       &:hover:not(.active) {
-        background-color: rgba(103, 58, 183, 0.05);
+        background-color: var(--color-primary-bg);
       }
 
       &.active {
-        background-color: rgba(103, 58, 183, 0.1);
+        background-color: var(--color-primary-hover);
         color: var(--color-primary);
         border-left: 4px solid var(--color-primary);
 
@@ -89,7 +89,7 @@
       align-items: center;
       gap: var(--spacing-sm);
       padding: var(--spacing-md);
-      background-color: rgba(103, 58, 183, 0.05);
+      background-color: var(--color-primary-bg);
 
       mat-icon {
         color: var(--color-primary);
@@ -101,12 +101,12 @@
       .plan-name {
         font-weight: 600;
         font-size: 14px;
-        color: #333;
+        color: var(--text-primary);
       }
 
       .plan-status {
         font-size: 12px;
-        color: #666;
+        color: var(--text-secondary);
         margin-top: 2px;
       }
     }
@@ -118,7 +118,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 
   // Breadcrumb
   .breadcrumb {
@@ -204,18 +204,93 @@
 // User Menu Header
 .user-menu-header {
   padding: var(--spacing-md);
-  background-color: #f5f5f5;
+  background-color: var(--bg-secondary, #f5f5f5);
 
   .user-menu-name {
     font-weight: 600;
     font-size: 14px;
-    color: #333;
+    color: var(--text-primary, #333);
   }
 
   .user-menu-email {
     font-size: 12px;
-    color: #666;
+    color: var(--text-secondary, #666);
     margin-top: 4px;
+  }
+}
+
+// Accessibility Menu Styles
+::ng-deep .accessibility-menu {
+  min-width: 280px !important;
+
+  .accessibility-menu-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--color-primary);
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .menu-section-label {
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-secondary, #666);
+    letter-spacing: 0.5px;
+    margin-top: var(--spacing-xs);
+  }
+
+  .mat-mdc-menu-item {
+    position: relative;
+    min-height: 48px !important;
+
+    &[disabled] {
+      opacity: 0.6;
+    }
+
+    .status-badge {
+      position: absolute;
+      right: 16px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+
+      &.on {
+        background-color: var(--color-success, #4caf50);
+        color: white;
+      }
+
+      &.off {
+        background-color: var(--bg-tertiary, #e0e0e0);
+        color: var(--text-secondary, #666);
+      }
+
+      &.active {
+        background-color: var(--color-primary);
+        color: white;
+      }
+    }
+  }
+
+  .reset-button {
+    color: var(--color-warn, #f44336);
+    font-weight: 500;
+
+    mat-icon {
+      color: var(--color-warn, #f44336);
+    }
   }
 }
 

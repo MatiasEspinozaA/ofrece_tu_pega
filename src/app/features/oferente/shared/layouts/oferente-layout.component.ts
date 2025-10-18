@@ -68,7 +68,6 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
   // Accessibility Settings
   readonly accessibilitySettings = signal<AccessibilitySettings>({
     fontSize: 'normal',
-    contrast: 'normal',
     theme: 'light',
   });
 
@@ -226,9 +225,6 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
     root.classList.remove('font-small', 'font-normal', 'font-large');
     root.classList.add(`font-${settings.fontSize}`);
 
-    // Contrast
-    root.classList.toggle('high-contrast', settings.contrast === 'high');
-
     // Theme
     root.classList.toggle('dark-theme', settings.theme === 'dark');
   }
@@ -245,6 +241,13 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
    */
   isActiveRoute(route: string): boolean {
     return this.currentRoute().includes(route);
+  }
+
+  /**
+   * Set specific font size
+   */
+  setFontSize(size: 'small' | 'normal' | 'large'): void {
+    this.updateAccessibilitySetting('fontSize', size);
   }
 
   /**
@@ -266,15 +269,6 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Toggle high contrast mode
-   */
-  toggleHighContrast(): void {
-    const current = this.accessibilitySettings().contrast;
-    const newContrast = current === 'normal' ? 'high' : 'normal';
-    this.updateAccessibilitySetting('contrast', newContrast);
-  }
-
-  /**
    * Toggle dark mode
    */
   toggleDarkMode(): void {
@@ -293,6 +287,19 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
     const updated = { ...this.accessibilitySettings(), [key]: value };
     this.accessibilitySettings.set(updated);
     this.applyAccessibilitySettings(updated);
+    this.saveAccessibilitySettings();
+  }
+
+  /**
+   * Reset all accessibility settings to defaults
+   */
+  resetAccessibilitySettings(): void {
+    const defaultSettings: AccessibilitySettings = {
+      fontSize: 'normal',
+      theme: 'light',
+    };
+    this.accessibilitySettings.set(defaultSettings);
+    this.applyAccessibilitySettings(defaultSettings);
     this.saveAccessibilitySettings();
   }
 

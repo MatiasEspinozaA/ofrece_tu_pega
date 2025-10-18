@@ -5,7 +5,25 @@
 
 // Font Size Classes
 html.font-small {
-  font-size: 14px;
+  font-size: 12px;
+
+  .mat-toolbar {
+    font-size: 13px !important;
+  }
+
+  .mat-list-item {
+    font-size: 13px !important;
+    min-height: 44px !important;
+  }
+
+  h1 { font-size: 1.5rem !important; }
+  h2 { font-size: 1.3rem !important; }
+  h3 { font-size: 1.1rem !important; }
+
+  button {
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+  }
 }
 
 html.font-normal {
@@ -13,34 +31,476 @@ html.font-normal {
 }
 
 html.font-large {
-  font-size: 18px;
+  font-size: 20px;
+
+  .mat-toolbar {
+    font-size: 20px !important;
+    min-height: 72px !important;
+  }
+
+  .mat-list-item {
+    font-size: 20px !important;
+    min-height: 64px !important;
+    padding: 12px 16px !important;
+  }
+
+  .mat-icon {
+    transform: scale(1.25);
+  }
+
+  h1 { font-size: 2.5rem !important; }
+  h2 { font-size: 2rem !important; }
+  h3 { font-size: 1.6rem !important; }
+
+  button {
+    font-size: 18px !important;
+    padding: 14px 24px !important;
+    min-height: 48px !important;
+  }
+
+  .mat-mdc-form-field {
+    font-size: 18px !important;
+  }
 }
 
 // High Contrast Mode
 html.high-contrast {
-  --color-primary: #000080;
+  --color-primary: #0000ff;
   --color-accent: #ff0000;
   --color-warn: #ff0000;
+  --color-success: #008000;
 
+  // Make borders more visible
   * {
-    border-color: #000 !important;
+    border-width: 2px !important;
   }
 
+  // Make text more visible
+  body {
+    font-weight: 600;
+  }
+
+  // Underline interactive elements
   button,
   a {
     text-decoration: underline;
+    font-weight: 700;
+  }
+
+  // High contrast backgrounds
+  .mat-toolbar {
+    background-color: #000 !important;
+    color: #fff !important;
+    border-bottom: 3px solid #fff !important;
+  }
+
+  .mat-sidenav {
+    background-color: #fff !important;
+    color: #000 !important;
+    border-right: 3px solid #000 !important;
+  }
+
+  .mat-list-item {
+    border-bottom: 1px solid #000 !important;
+
+    &.active {
+      background-color: #000 !important;
+      color: #fff !important;
+      border-left: 5px solid #ff0 !important;
+    }
+
+    &:hover {
+      background-color: #ffff00 !important;
+      color: #000 !important;
+    }
+  }
+
+  // Focus indicators
+  *:focus,
+  *:focus-visible {
+    outline: 3px solid #ff0 !important;
+    outline-offset: 3px !important;
+  }
+
+  // Cards and containers
+  .mat-card,
+  .crud-table-container {
+    border: 3px solid #000 !important;
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+
+  // Buttons
+  .mat-button,
+  .mat-raised-button,
+  .mat-icon-button {
+    border: 2px solid currentColor !important;
   }
 }
 
 // Dark Theme
 html.dark-theme {
+  // Dark theme color tokens
   --color-primary: #bb86fc;
   --color-accent: #03dac6;
   --color-warn: #cf6679;
+  --color-success: #66bb6a;
+  --color-info: #42a5f5;
+
+  // Primary color variants for dark mode
+  --color-primary-bg: rgba(187, 134, 252, 0.1);
+  --color-primary-hover: rgba(187, 134, 252, 0.15);
+
+  // Background colors
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #2a2a2a;
+  --bg-elevated: #2d2d2d;
+
+  // Text colors
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --text-disabled: #666666;
+  --text-inverse: #000000;
+
+  // Border colors
+  --border-color: #333333;
+  --border-color-light: #404040;
+  --border-color-dark: #505050;
 
   body {
-    background-color: #121212;
-    color: #ffffff;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  // Improve text contrast in dark mode
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+  }
+
+  p, span, label {
+    color: var(--text-primary);
+  }
+
+  // Material components dark mode
+  .mat-toolbar,
+  .mat-sidenav {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .mat-drawer-container {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  // Cards and containers
+  .mat-card,
+  .mat-mdc-card,
+  .crud-table-container {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  // Tables
+  .mat-table,
+  .crud-table {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+
+    th {
+      background-color: var(--bg-tertiary) !important;
+      color: var(--text-primary) !important;
+    }
+
+    .table-row:hover {
+      background-color: var(--bg-tertiary) !important;
+    }
+  }
+
+  // Forms
+  .mat-form-field {
+    .mat-mdc-input-element {
+      color: var(--text-primary);
+    }
+
+    .mat-mdc-form-field-label {
+      color: var(--text-secondary);
+    }
+  }
+
+  // Menus and dialogs
+  .mat-menu-panel,
+  .mat-mdc-menu-panel {
+    background-color: var(--bg-elevated) !important;
+
+    .mat-menu-item,
+    .mat-mdc-menu-item {
+      color: var(--text-primary);
+
+      &:hover {
+        background-color: var(--bg-tertiary) !important;
+      }
+    }
+  }
+
+  .mat-dialog-container,
+  .mat-mdc-dialog-container {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  // Lists
+  .mat-list-item,
+  .mat-nav-list a {
+    color: var(--text-primary) !important;
+
+    &:hover:not(.active) {
+      background-color: var(--bg-tertiary) !important;
+    }
+
+    &.active {
+      background-color: var(--color-primary-hover) !important;
+      color: var(--color-primary) !important;
+    }
+  }
+
+  // Dividers
+  .mat-divider {
+    border-color: var(--border-color) !important;
+  }
+
+  // Page specific
+  .oferente-container {
+    background-color: var(--bg-primary) !important;
+  }
+
+  .oferente-sidenav {
+    background-color: var(--bg-secondary) !important;
+    border-right-color: var(--border-color) !important;
+
+    .sidenav-header .brand {
+      color: var(--color-primary) !important;
+    }
+
+    .plan-info {
+      background-color: var(--color-primary-bg) !important;
+
+      .plan-name {
+        color: var(--text-primary) !important;
+      }
+
+      .plan-status {
+        color: var(--text-secondary) !important;
+      }
+    }
+  }
+
+  .page-content {
+    background-color: var(--bg-primary);
+  }
+
+  // Dashboard cards
+  .stat-card,
+  .action-card,
+  .activity-card {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+
+    .stat-value,
+    h3 {
+      color: var(--text-primary) !important;
+    }
+
+    .stat-label,
+    p {
+      color: var(--text-secondary) !important;
+    }
+  }
+
+  // Dashboard page specific
+  .dashboard-page {
+    .page-header {
+      h1 {
+        color: #ffffff !important;
+      }
+
+      .subtitle {
+        color: #e0e0e0 !important;
+      }
+    }
+
+    .section h2 {
+      color: #ffffff !important;
+    }
+
+    .stat-card {
+      .stat-label {
+        color: #b3b3b3 !important;
+      }
+
+      .stat-value {
+        color: #ffffff !important;
+      }
+    }
+
+    .action-card {
+      h3 {
+        color: #ffffff !important;
+      }
+
+      p {
+        color: #b3b3b3 !important;
+      }
+    }
+
+    .activity-card {
+      .activity-item {
+        border-bottom-color: #404040 !important;
+
+        .activity-icon {
+          background-color: rgba(103, 58, 183, 0.1) !important;
+        }
+
+        .activity-content {
+          .activity-title {
+            color: #ffffff !important;
+            font-weight: 500 !important;
+          }
+
+          .activity-time {
+            color: #b3b3b3 !important;
+          }
+        }
+      }
+
+      .empty-state {
+        mat-icon {
+          color: #666666 !important;
+        }
+
+        p {
+          color: #999999 !important;
+        }
+      }
+    }
+  }
+
+  // User menu
+  .user-menu-header {
+    background-color: var(--bg-tertiary) !important;
+
+    .user-menu-name {
+      color: var(--text-primary) !important;
+    }
+
+    .user-menu-email {
+      color: var(--text-secondary) !important;
+    }
+  }
+
+  // Badges and chips
+  .badge,
+  .mat-chip,
+  .mat-mdc-chip {
+    background-color: var(--color-accent) !important;
+    color: var(--text-inverse) !important;
+  }
+
+  // Buttons
+  .mat-mdc-raised-button,
+  .mat-raised-button {
+    &:not([color]) {
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+  }
+
+  // Links
+  a:not(.mat-button):not(.mat-mdc-button) {
+    color: var(--color-primary);
+
+    &:hover {
+      color: var(--color-accent);
+    }
+  }
+
+  // Scrollbars (webkit)
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+
+    &:hover {
+      background: var(--border-color-light);
+    }
+  }
+}
+
+// Light Theme - Ensure proper colors
+html:not(.dark-theme) {
+  body {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+
+  .page-content {
+    background-color: var(--bg-secondary);
+  }
+
+  .oferente-container {
+    background-color: var(--bg-secondary);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #212121 !important;
+  }
+
+  // Dashboard page in light mode
+  .dashboard-page {
+    .page-header {
+      .subtitle {
+        color: #666666 !important;
+      }
+    }
+
+    .activity-card {
+      .activity-item {
+        .activity-title {
+          color: #212121 !important;
+        }
+
+        .activity-time {
+          color: #757575 !important;
+        }
+      }
+    }
+
+    .stat-card {
+      .stat-label {
+        color: #666666 !important;
+      }
+
+      .stat-value {
+        color: #212121 !important;
+      }
+    }
+
+    .action-card {
+      p {
+        color: #666666 !important;
+      }
+    }
   }
 }
 

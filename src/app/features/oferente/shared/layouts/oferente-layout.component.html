@@ -129,38 +129,83 @@
 </mat-sidenav-container>
 
 <!-- Accessibility Menu -->
-<mat-menu #accessibilityMenu="matMenu" aria-label="Opciones de accesibilidad">
-  <button
-    mat-menu-item
-    (click)="increaseFontSize()"
-    aria-label="Aumentar tamaño de texto"
-  >
-    <mat-icon aria-hidden="true">text_increase</mat-icon>
-    <span>Aumentar texto</span>
-  </button>
+<mat-menu #accessibilityMenu="matMenu" aria-label="Opciones de accesibilidad" class="accessibility-menu">
+  <div class="accessibility-menu-header">
+    <mat-icon>accessibility</mat-icon>
+    <span>Configuración de Accesibilidad</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Font Size Section -->
+  <div class="menu-section-label">Tamaño de texto</div>
   <button
     mat-menu-item
     (click)="decreaseFontSize()"
     aria-label="Disminuir tamaño de texto"
+    [disabled]="accessibilitySettings().fontSize === 'small'"
   >
     <mat-icon aria-hidden="true">text_decrease</mat-icon>
-    <span>Disminuir texto</span>
+    <span>Pequeño</span>
+    @if (accessibilitySettings().fontSize === 'small') {
+      <span class="status-badge active">ACTIVO</span>
+    }
   </button>
   <button
     mat-menu-item
-    (click)="toggleHighContrast()"
-    aria-label="Alternar alto contraste"
+    (click)="setFontSize('normal')"
+    aria-label="Tamaño de texto normal"
+    [disabled]="accessibilitySettings().fontSize === 'normal'"
   >
-    <mat-icon aria-hidden="true">contrast</mat-icon>
-    <span>Alto contraste</span>
+    <mat-icon aria-hidden="true">text_fields</mat-icon>
+    <span>Normal</span>
+    @if (accessibilitySettings().fontSize === 'normal') {
+      <span class="status-badge active">ACTIVO</span>
+    }
   </button>
+  <button
+    mat-menu-item
+    (click)="increaseFontSize()"
+    aria-label="Aumentar tamaño de texto"
+    [disabled]="accessibilitySettings().fontSize === 'large'"
+  >
+    <mat-icon aria-hidden="true">text_increase</mat-icon>
+    <span>Grande</span>
+    @if (accessibilitySettings().fontSize === 'large') {
+      <span class="status-badge active">ACTIVO</span>
+    }
+  </button>
+
+  <mat-divider></mat-divider>
+
+  <!-- Dark Mode Toggle -->
+  <div class="menu-section-label">Tema</div>
   <button
     mat-menu-item
     (click)="toggleDarkMode()"
     aria-label="Alternar modo oscuro"
+    [attr.aria-pressed]="accessibilitySettings().theme === 'dark'"
   >
-    <mat-icon aria-hidden="true">invert_colors</mat-icon>
+    <mat-icon aria-hidden="true">dark_mode</mat-icon>
     <span>Modo oscuro</span>
+    @if (accessibilitySettings().theme === 'dark') {
+      <span class="status-badge on">ON</span>
+    } @else {
+      <span class="status-badge off">OFF</span>
+    }
+  </button>
+
+  <mat-divider></mat-divider>
+
+  <!-- Reset Button -->
+  <button
+    mat-menu-item
+    (click)="resetAccessibilitySettings()"
+    aria-label="Restablecer configuración predeterminada"
+    class="reset-button"
+  >
+    <mat-icon aria-hidden="true">refresh</mat-icon>
+    <span>Restablecer todo</span>
   </button>
 </mat-menu>
 

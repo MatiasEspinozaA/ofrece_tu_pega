@@ -1,42 +1,77 @@
 /* CSS Custom Properties - Design Tokens */
 :root {
-  /* Colors */
-  --color-primary: #1976d2;
+  /* Primary Colors */
+  --color-primary: #673ab7;
+  --color-primary-light: #9575cd;
+  --color-primary-dark: #512da8;
   --color-accent: #ff4081;
   --color-warn: #f44336;
   --color-success: #4caf50;
   --color-info: #2196f3;
 
+  /* Background Colors - Light Theme */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #e0e0e0;
+  --bg-elevated: #ffffff;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+
+  /* Text Colors - Light Theme */
+  --text-primary: #212121;
+  --text-secondary: #666666;
+  --text-disabled: #9e9e9e;
+  --text-inverse: #ffffff;
+
+  /* Border Colors */
+  --border-color: rgba(0, 0, 0, 0.12);
+  --border-color-light: rgba(0, 0, 0, 0.06);
+  --border-color-dark: rgba(0, 0, 0, 0.24);
+
   /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-xxl: 3rem;
+  --spacing-xs: 0.25rem;    /* 4px */
+  --spacing-sm: 0.5rem;     /* 8px */
+  --spacing-md: 1rem;       /* 16px */
+  --spacing-lg: 1.5rem;     /* 24px */
+  --spacing-xl: 2rem;       /* 32px */
+  --spacing-xxl: 3rem;      /* 48px */
 
   /* Typography */
   --font-family-base: 'Roboto', 'Helvetica Neue', sans-serif;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-xxl: 1.5rem;
-  --font-size-xxxl: 2rem;
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-xxl: 1.5rem;   /* 24px */
+  --font-size-xxxl: 2rem;    /* 32px */
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
 
   /* Border Radius */
+  --border-radius-none: 0;
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
   --border-radius-xl: 16px;
+  --border-radius-full: 9999px;
 
   /* Shadows */
+  --shadow-none: none;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  --shadow-xl: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
-  /* Z-index */
+  /* Z-index Layers */
+  --z-index-base: 0;
   --z-index-dropdown: 1000;
   --z-index-sticky: 1020;
   --z-index-fixed: 1030;
@@ -49,4 +84,26 @@
   --transition-fast: 150ms ease-in-out;
   --transition-base: 300ms ease-in-out;
   --transition-slow: 500ms ease-in-out;
+
+  /* Component-specific Tokens */
+  --sidebar-width: 280px;
+  --sidebar-width-collapsed: 60px;
+  --toolbar-height: 64px;
+  --footer-height: 60px;
+
+  /* State Colors */
+  --state-hover: rgba(0, 0, 0, 0.04);
+  --state-focus: rgba(0, 0, 0, 0.12);
+  --state-active: rgba(0, 0, 0, 0.16);
+  --state-disabled: rgba(0, 0, 0, 0.38);
+
+  /* Primary Color Variants */
+  --color-primary-bg: rgba(103, 58, 183, 0.05);
+  --color-primary-hover: rgba(103, 58, 183, 0.1);
+
+  /* Badge/Chip Colors */
+  --badge-success: var(--color-success);
+  --badge-info: var(--color-info);
+  --badge-warning: #ff9800;
+  --badge-error: var(--color-warn);
 }

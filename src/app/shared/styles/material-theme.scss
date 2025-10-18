@@ -24,8 +24,8 @@ $theme: mat.define-theme((
   @include mat.all-component-themes($theme);
 }
 
-// Dark theme (optional)
-.dark-theme {
+// Dark theme - Applied when html has .dark-theme class
+html.dark-theme {
   $dark-theme: mat.define-theme((
     color: (
       theme-type: dark,
@@ -35,4 +35,16 @@ $theme: mat.define-theme((
   ));
 
   @include mat.all-component-colors($dark-theme);
+
+  // Additional dark mode overrides for Material components
+  .mat-toolbar.mat-primary {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .mat-mdc-card,
+  .mat-card {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+  }
 }

@@ -20,6 +20,5 @@ export interface UserInfo {
 
 export interface AccessibilitySettings {
   fontSize: 'small' | 'normal' | 'large';
-  contrast: 'normal' | 'high';
   theme: 'light' | 'dark';
 }
