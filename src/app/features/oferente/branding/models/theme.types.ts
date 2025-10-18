@@ -14,6 +14,11 @@ export type ThemeId = 'nature' | 'ocean' | 'fire' | 'carbon' | 'snow' | 'violet'
 export type ThemeMode = 'light' | 'dark';
 
 /**
+ * Available font families
+ */
+export type FontFamily = 'roboto' | 'inter' | 'poppins' | 'montserrat' | 'open-sans';
+
+/**
  * CSS Custom Property overrides
  * Maps CSS variable names to their values
  */
@@ -51,6 +56,26 @@ export interface ThemeState {
 
   /** Current display mode */
   mode: ThemeMode;
+
+  /** Currently active font family */
+  fontFamily: FontFamily;
+}
+
+/**
+ * Font option for UI selection
+ */
+export interface FontOption {
+  /** Unique font identifier */
+  readonly id: FontFamily;
+
+  /** Display name */
+  readonly name: string;
+
+  /** CSS font-family value */
+  readonly cssValue: string;
+
+  /** Short description */
+  readonly description: string;
 }
 
 /**

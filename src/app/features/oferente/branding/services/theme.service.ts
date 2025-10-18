@@ -4,17 +4,19 @@
  */
 
 import { Injectable, signal, computed, effect } from '@angular/core';
-import { ThemeId, ThemeMode, ThemeState } from '../models/theme.types';
-import { THEME_DEFINITIONS } from './theme.registry';
+import { ThemeId, ThemeMode, ThemeState, FontFamily } from '../models/theme.types';
+import { THEME_DEFINITIONS, getFontById } from './theme.registry';
 
 const STORAGE_KEYS = {
   THEME: 'app.theme',
   MODE: 'app.mode',
+  FONT: 'app.font',
 } as const;
 
 const DEFAULTS: ThemeState = {
   theme: 'violet',
   mode: 'light',
+  fontFamily: 'roboto',
 } as const;
 
 @Injectable({
@@ -24,15 +26,18 @@ export class ThemeService {
   // State signals
   private readonly _theme = signal<ThemeId>(this.loadTheme());
   private readonly _mode = signal<ThemeMode>(this.loadMode());
+  private readonly _fontFamily = signal<FontFamily>(this.loadFont());
 
   // Public readonly signals
   readonly theme = this._theme.asReadonly();
   readonly mode = this._mode.asReadonly();
+  readonly fontFamily = this._fontFamily.asReadonly();
 
   // Computed state
   readonly state = computed<ThemeState>(() => ({
     theme: this._theme(),
     mode: this._mode(),
+    fontFamily: this._fontFamily(),
   }));
 
   constructor() {
@@ -87,12 +92,27 @@ export class ThemeService {
   }
 
   /**
+   * Get current font family
+   */
+  getFont(): FontFamily {
+    return this._fontFamily();
+  }
+
+  /**
+   * Set font family
+   */
+  setFont(fontFamily: FontFamily): void {
+    this._fontFamily.set(fontFamily);
+  }
+
+  /**
    * Apply current theme and mode to document
    */
   applyToDocument(): void {
     const root = document.documentElement;
     const currentTheme = this._theme();
     const currentMode = this._mode();
+    const currentFont = this._fontFamily();
 
     // Set data attributes
     root.setAttribute('data-theme', currentTheme);
@@ -100,6 +120,21 @@ export class ThemeService {
 
     // Apply token overrides
     this.applyTokens(currentTheme, currentMode);
+
+    // Apply font family
+    this.applyFont(currentFont);
+  }
+
+  /**
+   * Apply font family to document
+   */
+  private applyFont(fontFamily: FontFamily): void {
+    const fontOption = getFontById(fontFamily);
+    if (!fontOption) return;
+
+    const root = document.documentElement;
+    root.style.setProperty('--font-family-base', fontOption.cssValue);
+    document.body.style.fontFamily = fontOption.cssValue;
   }
 
   /**
@@ -149,12 +184,28 @@ export class ThemeService {
   }
 
   /**
+   * Load font family from localStorage
+   */
+  private loadFont(): FontFamily {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEYS.FONT);
+      if (stored && this.isValidFontId(stored)) {
+        return stored as FontFamily;
+      }
+    } catch (error) {
+      console.warn('Failed to load font from localStorage:', error);
+    }
+    return DEFAULTS.fontFamily;
+  }
+
+  /**
    * Persist current state to localStorage
    */
   private persistState(state: ThemeState): void {
     try {
       localStorage.setItem(STORAGE_KEYS.THEME, state.theme);
       localStorage.setItem(STORAGE_KEYS.MODE, state.mode);
+      localStorage.setItem(STORAGE_KEYS.FONT, state.fontFamily);
     } catch (error) {
       console.warn('Failed to persist theme state:', error);
     }
@@ -168,11 +219,19 @@ export class ThemeService {
   }
 
   /**
+   * Validate font ID
+   */
+  private isValidFontId(id: string): boolean {
+    return getFontById(id as FontFamily) !== undefined;
+  }
+
+  /**
    * Reset to default theme
    */
   resetToDefaults(): void {
     this._theme.set(DEFAULTS.theme);
     this._mode.set(DEFAULTS.mode);
+    this._fontFamily.set(DEFAULTS.fontFamily);
   }
 
   /**

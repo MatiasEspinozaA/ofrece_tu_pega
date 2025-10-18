@@ -98,4 +98,31 @@ html[data-mode="dark"],
       color: var(--text-primary);
     }
   }
+
+  // Material select
+  .mat-mdc-select-panel {
+    background-color: var(--bg-elevated);
+  }
+
+  .mat-mdc-option {
+    color: var(--text-primary);
+
+    &:hover {
+      background-color: var(--color-primary-hover);
+    }
+
+    &.mdc-list-item--selected {
+      background-color: var(--color-primary-bg);
+      color: var(--color-primary);
+    }
+  }
+
+  // Material form field
+  .mat-mdc-form-field {
+    --mdc-outlined-text-field-label-text-color: var(--text-secondary);
+    --mdc-outlined-text-field-input-text-color: var(--text-primary);
+    --mdc-outlined-text-field-outline-color: var(--border-color);
+    --mdc-outlined-text-field-focus-outline-color: var(--color-primary);
+    --mdc-outlined-text-field-hover-outline-color: var(--color-primary);
+  }
 }

@@ -11,9 +11,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from './services/theme.service';
-import { getAllThemeIds, getThemeById } from './services/theme.registry';
+import { getAllThemeIds, getThemeById, getAllFonts } from './services/theme.registry';
 import { ThemeCardComponent } from './components/theme-card.component';
-import { ThemeId } from './models/theme.types';
+import { ThemeId, FontFamily } from './models/theme.types';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 // i18n texts (ready for ngx-translate)
 const BRANDING_I18N = {
@@ -21,6 +23,8 @@ const BRANDING_I18N = {
   subtitle: 'Personaliza los colores y apariencia de tu espacio',
   darkModeLabel: 'Modo Oscuro',
   darkModeHint: 'Alternar entre tema claro y oscuro',
+  fontLabel: 'Tipografía',
+  fontHint: 'Selecciona la fuente para tu aplicación',
   themesSection: 'Temas Disponibles',
   themesHint: 'Selecciona el tema que mejor represente tu marca',
 } as const;
@@ -35,6 +39,8 @@ const BRANDING_I18N = {
     MatIconModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    MatSelectModule,
+    MatFormFieldModule,
     ThemeCardComponent,
   ],
   template: `
@@ -50,16 +56,42 @@ const BRANDING_I18N = {
               </h1>
               <p class="subtitle">{{ i18n.subtitle }}</p>
             </div>
-            <div class="col-md-4 text-end">
-              <mat-slide-toggle
-                [checked]="isDarkMode()"
-                (change)="toggleDarkMode()"
-                [matTooltip]="i18n.darkModeHint"
-                color="primary"
-              >
-                <mat-icon>{{ isDarkMode() ? 'dark_mode' : 'light_mode' }}</mat-icon>
-                {{ i18n.darkModeLabel }}
-              </mat-slide-toggle>
+            <div class="col-md-4">
+              <div class="settings-controls">
+                <!-- Font Selector -->
+                <mat-form-field appearance="outline" class="font-selector">
+                  <mat-label>
+                    <mat-icon>font_download</mat-icon>
+                    {{ i18n.fontLabel }}
+                  </mat-label>
+                  <mat-select
+                    [value]="currentFont()"
+                    (selectionChange)="setFont($event.value)"
+                    [matTooltip]="i18n.fontHint"
+                  >
+                    @for (font of fontOptions; track font.id) {
+                      <mat-option [value]="font.id">
+                        <span class="font-option" [style.font-family]="font.cssValue">
+                          {{ font.name }}
+                        </span>
+                        <small class="font-description">{{ font.description }}</small>
+                      </mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Dark Mode Toggle -->
+                <mat-slide-toggle
+                  [checked]="isDarkMode()"
+                  (change)="toggleDarkMode()"
+                  [matTooltip]="i18n.darkModeHint"
+                  color="primary"
+                  class="dark-mode-toggle"
+                >
+                  <mat-icon>{{ isDarkMode() ? 'dark_mode' : 'light_mode' }}</mat-icon>
+                  {{ i18n.darkModeLabel }}
+                </mat-slide-toggle>
+              </div>
             </div>
           </div>
         </div>
@@ -140,10 +172,71 @@ const BRANDING_I18N = {
         font-weight: var(--font-weight-normal);
       }
 
-      mat-slide-toggle {
+      .settings-controls {
+        display: flex;
+        gap: var(--spacing-lg);
+        align-items: flex-start;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+
+      .font-selector {
+        min-width: 250px;
+        max-width: 300px;
+        margin-bottom: 0;
+
+        ::ng-deep {
+          .mat-mdc-form-field {
+            margin-bottom: 0;
+          }
+
+          .mat-mdc-text-field-wrapper {
+            padding-bottom: 0;
+          }
+
+          .mat-mdc-form-field-label {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--text-primary);
+
+            mat-icon {
+              font-size: 18px;
+              width: 18px;
+              height: 18px;
+              color: var(--color-primary);
+            }
+          }
+
+          .mat-mdc-select {
+            color: var(--text-primary);
+          }
+
+          .mat-mdc-select-value {
+            color: var(--text-primary);
+          }
+
+          .mdc-notched-outline__leading,
+          .mdc-notched-outline__notch,
+          .mdc-notched-outline__trailing {
+            border-color: var(--border-color) !important;
+          }
+
+          .mat-mdc-form-field.mat-focused {
+            .mdc-notched-outline__leading,
+            .mdc-notched-outline__notch,
+            .mdc-notched-outline__trailing {
+              border-color: var(--color-primary) !important;
+            }
+          }
+        }
+      }
+
+      .dark-mode-toggle {
         display: inline-flex;
         align-items: center;
         color: var(--text-primary);
+        margin-top: 8px;
 
         ::ng-deep {
           .mdc-form-field {
@@ -157,7 +250,7 @@ const BRANDING_I18N = {
             align-items: center;
             gap: var(--spacing-xs);
             padding-left: var(--spacing-sm);
-            color: var(--text-primary);
+            color: var(--text-primary) !important;
             font-size: var(--font-size-base);
             font-weight: var(--font-weight-medium);
             line-height: 1;
@@ -169,11 +262,70 @@ const BRANDING_I18N = {
               display: flex;
               align-items: center;
               justify-content: center;
+              color: var(--text-primary) !important;
             }
           }
 
           .mdc-switch {
             margin: 0;
+
+            .mdc-switch__track {
+              background-color: var(--border-color) !important;
+              border-color: var(--border-color) !important;
+            }
+
+            .mdc-switch__handle-track {
+              background-color: var(--bg-elevated) !important;
+            }
+
+            &.mdc-switch--selected {
+              .mdc-switch__track {
+                background-color: var(--color-primary) !important;
+                border-color: var(--color-primary) !important;
+              }
+
+              .mdc-switch__handle-track {
+                background-color: var(--color-primary) !important;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    ::ng-deep {
+      .font-option {
+        display: block;
+        font-size: var(--font-size-base);
+        margin-bottom: 2px;
+        color: var(--text-primary);
+      }
+
+      .font-description {
+        display: block;
+        font-size: var(--font-size-xs);
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+
+      // Estilos para el panel de opciones del select
+      .mat-mdc-select-panel {
+        background-color: var(--bg-elevated) !important;
+
+        .mat-mdc-option {
+          color: var(--text-primary) !important;
+
+          &:hover {
+            background-color: var(--color-primary-hover) !important;
+          }
+
+          &.mat-mdc-option-active {
+            background-color: var(--color-primary-bg) !important;
+          }
+
+          &.mdc-list-item--selected {
+            background-color: var(--color-primary-hover) !important;
+            color: var(--color-primary) !important;
           }
         }
       }
@@ -228,9 +380,13 @@ export class BrandingThemePickerComponent implements OnInit {
   // Theme IDs
   readonly themeIds = getAllThemeIds();
 
+  // Font Options
+  readonly fontOptions = getAllFonts();
+
   // Current state from service
   readonly currentTheme = this.themeService.theme;
   readonly currentMode = this.themeService.mode;
+  readonly currentFont = this.themeService.fontFamily;
 
   // Computed
   readonly isDarkMode = computed(() => this.currentMode() === 'dark');
@@ -259,5 +415,12 @@ export class BrandingThemePickerComponent implements OnInit {
    */
   toggleDarkMode(): void {
     this.themeService.toggleMode();
+  }
+
+  /**
+   * Set font family
+   */
+  setFont(fontFamily: FontFamily): void {
+    this.themeService.setFont(fontFamily);
   }
 }

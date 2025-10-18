@@ -3,7 +3,7 @@
  * Central repository of all available themes with their token definitions
  */
 
-import { ThemeDefinition, ThemeId } from '../models/theme.types';
+import { ThemeDefinition, ThemeId, FontOption, FontFamily } from '../models/theme.types';
 
 /**
  * Complete theme definitions
@@ -366,4 +366,54 @@ export function getThemePalette(id: ThemeId, mode: 'light' | 'dark' = 'light') {
     background: tokens['--bg-secondary'],
     text: tokens['--text-primary'],
   };
+}
+
+/**
+ * Available font options
+ */
+export const FONT_OPTIONS: readonly FontOption[] = [
+  {
+    id: 'roboto',
+    name: 'Roboto',
+    cssValue: "'Roboto', sans-serif",
+    description: 'Moderna y versátil (predeterminada)',
+  },
+  {
+    id: 'inter',
+    name: 'Inter',
+    cssValue: "'Inter', sans-serif",
+    description: 'Limpia y profesional',
+  },
+  {
+    id: 'poppins',
+    name: 'Poppins',
+    cssValue: "'Poppins', sans-serif",
+    description: 'Amigable y redondeada',
+  },
+  {
+    id: 'montserrat',
+    name: 'Montserrat',
+    cssValue: "'Montserrat', sans-serif",
+    description: 'Elegante y corporativa',
+  },
+  {
+    id: 'open-sans',
+    name: 'Open Sans',
+    cssValue: "'Open Sans', sans-serif",
+    description: 'Muy legible y neutral',
+  },
+] as const;
+
+/**
+ * Get all available fonts
+ */
+export function getAllFonts(): readonly FontOption[] {
+  return FONT_OPTIONS;
+}
+
+/**
+ * Get font option by ID
+ */
+export function getFontById(id: FontFamily): FontOption | undefined {
+  return FONT_OPTIONS.find(font => font.id === id);
 }

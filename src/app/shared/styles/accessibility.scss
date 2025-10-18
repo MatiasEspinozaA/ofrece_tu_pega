@@ -454,6 +454,54 @@ html[data-mode="dark"],
     }
   }
 
+  // Material components in dark mode
+  .mat-mdc-slide-toggle {
+    --mdc-switch-selected-track-color: var(--color-primary) !important;
+    --mdc-switch-selected-handle-color: var(--color-primary) !important;
+    --mdc-switch-unselected-track-color: var(--border-color) !important;
+    --mdc-switch-unselected-handle-color: var(--text-secondary) !important;
+
+    .mdc-switch__track {
+      background-color: var(--border-color) !important;
+    }
+
+    &.mdc-switch--selected .mdc-switch__track {
+      background-color: var(--color-primary) !important;
+    }
+
+    .mdc-label {
+      color: var(--text-primary) !important;
+    }
+  }
+
+  .mat-mdc-select-panel {
+    background-color: var(--bg-elevated) !important;
+  }
+
+  .mat-mdc-option {
+    color: var(--text-primary) !important;
+
+    &:hover {
+      background-color: var(--color-primary-hover) !important;
+    }
+
+    &.mdc-list-item--selected {
+      background-color: var(--color-primary-bg) !important;
+      color: var(--color-primary) !important;
+    }
+  }
+
+  .mat-mdc-form-field {
+    --mdc-outlined-text-field-label-text-color: var(--text-secondary) !important;
+    --mdc-outlined-text-field-input-text-color: var(--text-primary) !important;
+    --mdc-outlined-text-field-outline-color: var(--border-color) !important;
+    --mdc-outlined-text-field-focus-outline-color: var(--color-primary) !important;
+
+    .mat-mdc-select-arrow {
+      color: var(--text-primary) !important;
+    }
+  }
+
   // Branding page specific
   .branding-page {
     background-color: var(--bg-secondary) !important;
@@ -489,6 +537,20 @@ html[data-mode="dark"],
         }
 
         mat-icon {
+          color: var(--text-primary) !important;
+        }
+      }
+
+      .font-selector {
+        .mat-mdc-form-field-label {
+          color: var(--text-primary) !important;
+
+          mat-icon {
+            color: var(--color-primary) !important;
+          }
+        }
+
+        .mat-mdc-select-value {
           color: var(--text-primary) !important;
         }
       }
@@ -581,6 +643,49 @@ html:not(.dark-theme),
 
   h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary) !important;
+  }
+
+  // Material components in light mode
+  .mat-mdc-slide-toggle {
+    --mdc-switch-selected-track-color: var(--color-primary) !important;
+    --mdc-switch-selected-handle-color: var(--color-primary) !important;
+    --mdc-switch-unselected-track-color: var(--border-color) !important;
+
+    .mdc-label {
+      color: var(--text-primary) !important;
+    }
+  }
+
+  .mat-mdc-select-panel {
+    background-color: var(--bg-elevated) !important;
+  }
+
+  .mat-mdc-option {
+    color: var(--text-primary) !important;
+
+    &:hover {
+      background-color: var(--color-primary-hover) !important;
+    }
+
+    &.mdc-list-item--selected {
+      background-color: var(--color-primary-bg) !important;
+      color: var(--color-primary) !important;
+    }
+  }
+
+  .mat-mdc-form-field {
+    --mdc-outlined-text-field-label-text-color: var(--text-secondary) !important;
+    --mdc-outlined-text-field-input-text-color: var(--text-primary) !important;
+    --mdc-outlined-text-field-outline-color: var(--border-color) !important;
+    --mdc-outlined-text-field-focus-outline-color: var(--color-primary) !important;
+
+    .mat-mdc-select-arrow {
+      color: var(--text-primary) !important;
+    }
+
+    .mat-mdc-select-value {
+      color: var(--text-primary) !important;
+    }
   }
 
   // Sidebar
