@@ -1,0 +1,81 @@
+<div class="branding-page">
+  <div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1>
+            <mat-icon>palette</mat-icon>
+            {{ i18n.title }}
+          </h1>
+          <p class="subtitle">{{ i18n.subtitle }}</p>
+        </div>
+        <div class="col-md-4">
+          <div class="settings-controls">
+            <!-- Font Selector -->
+            <mat-form-field appearance="outline" class="font-selector">
+              <mat-label>
+                <mat-icon>font_download</mat-icon>
+                {{ i18n.fontLabel }}
+              </mat-label>
+              <mat-select
+                [value]="currentFont()"
+                (selectionChange)="setFont($event.value)"
+                [matTooltip]="i18n.fontHint"
+              >
+                @for (font of fontOptions; track font.id) {
+                  <mat-option [value]="font.id">
+                    <span class="font-option" [style.font-family]="font.cssValue">
+                      {{ font.name }}
+                    </span>
+                    <small class="font-description">{{ font.description }}</small>
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Dark Mode Toggle -->
+            <mat-slide-toggle
+              [checked]="isDarkMode()"
+              (change)="toggleDarkMode()"
+              [matTooltip]="i18n.darkModeHint"
+              color="primary"
+              class="dark-mode-toggle"
+            >
+              <mat-icon>{{ isDarkMode() ? 'dark_mode' : 'light_mode' }}</mat-icon>
+              {{ i18n.darkModeLabel }}
+            </mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="row">
+      <!-- Theme Grid -->
+      <div class="col-12">
+        <div class="section-header">
+          <h2>{{ i18n.themesSection }}</h2>
+          <p>{{ i18n.themesHint }}</p>
+        </div>
+
+        <div
+          class="themes-grid row"
+          role="radiogroup"
+          [attr.aria-label]="i18n.themesSection"
+        >
+          @for (themeId of themeIds; track themeId) {
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+              <app-theme-card
+                [theme]="getTheme(themeId)"
+                [mode]="currentMode()"
+                [isActive]="currentTheme() === themeId"
+                (selectTheme)="selectTheme($event)"
+              />
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

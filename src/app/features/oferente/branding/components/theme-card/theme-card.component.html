@@ -1,0 +1,69 @@
+<mat-card
+  class="theme-card"
+  [class.active]="isActive"
+  [attr.role]="'radio'"
+  [attr.aria-checked]="isActive"
+  [attr.aria-label]="theme.title + ': ' + theme.subtitle"
+>
+  <mat-card-header>
+    <div mat-card-avatar class="theme-icon">
+      <mat-icon [style.color]="palette.primary">{{ theme.icon || 'palette' }}</mat-icon>
+    </div>
+    <mat-card-title>{{ theme.title }}</mat-card-title>
+    <mat-card-subtitle>{{ theme.subtitle }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- Color Preview -->
+    <div class="color-preview" [attr.aria-label]="'Vista previa de colores'">
+      <div class="preview-header" [style.background-color]="palette.primary">
+        <div class="preview-toolbar">
+          <div class="preview-dot"></div>
+          <div class="preview-dot"></div>
+          <div class="preview-dot"></div>
+        </div>
+      </div>
+      <div class="preview-content" [style.background-color]="palette.background">
+        <div class="preview-chip" [style.background-color]="palette.accent"></div>
+        <div class="preview-text" [style.color]="palette.text">
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Swatches -->
+    <div class="color-swatches">
+      <div
+        class="swatch"
+        [style.background-color]="palette.primary"
+        [attr.aria-label]="'Color primario'"
+        [title]="palette.primary"
+      ></div>
+      <div
+        class="swatch"
+        [style.background-color]="palette.accent"
+        [attr.aria-label]="'Color acento'"
+        [title]="palette.accent"
+      ></div>
+      <div
+        class="swatch"
+        [style.background-color]="palette.background"
+        [attr.aria-label]="'Color fondo'"
+        [title]="palette.background"
+      ></div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      [color]="isActive ? 'primary' : undefined"
+      (click)="selectTheme.emit(theme.id)"
+      [attr.aria-pressed]="isActive"
+    >
+      <mat-icon>{{ isActive ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+      {{ isActive ? 'Activo' : 'Usar este tema' }}
+    </button>
+  </mat-card-actions>
+</mat-card>

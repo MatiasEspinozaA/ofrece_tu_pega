@@ -1,6 +1,6 @@
 // Oferente Routes
 import { Routes } from '@angular/router';
-import { OferenteLayoutComponent } from './shared/layouts/oferente-layout.component';
+import { OferenteLayoutComponent } from './shared/layouts/oferente-layout/oferente-layout.component';
 
 export const OFERENTE_ROUTES: Routes = [
   {

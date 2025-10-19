@@ -26,7 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Subject, takeUntil, filter } from 'rxjs';
 import { MenuItem, UserInfo, AccessibilitySettings } from './oferente-layout.types';
-import { ThemeService } from '../../branding/services/theme.service';
+import { ThemeService } from '../../../branding/services/theme.service';
 
 @Component({
   selector: 'app-oferente-layout',
@@ -48,6 +48,9 @@ import { ThemeService } from '../../branding/services/theme.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OferenteLayoutComponent implements OnInit, OnDestroy {
+  toggleHighContrast() {
+    throw new Error('Method not implemented.');
+  }
   // Dependency Injection
   private readonly router = inject(Router);
   private readonly breakpointObserver = inject(BreakpointObserver);

@@ -13,7 +13,7 @@ export const BRANDING_ROUTES: Routes = [
   {
     path: 'estilo',
     loadComponent: () =>
-      import('./branding-theme-picker.component').then(
+      import('./branding-theme-picker/branding-theme-picker.component').then(
         (m) => m.BrandingThemePickerComponent
       ),
     title: 'Estilo de la Aplicación - Branding',

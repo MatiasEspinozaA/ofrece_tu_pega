@@ -1,0 +1,74 @@
+<mat-card class="preview-panel">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>visibility</mat-icon>
+      Vista Previa en Vivo
+    </mat-card-title>
+    <mat-card-subtitle>Así se verá tu aplicación</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="mock-app">
+      <!-- Mock Toolbar -->
+      <div class="mock-toolbar" [style.background-color]="'var(--color-primary)'">
+        <mat-icon [style.color]="'var(--text-inverse)'">menu</mat-icon>
+        <span class="mock-title" [style.color]="'var(--text-inverse)'">Mi Aplicación</span>
+        <div class="spacer"></div>
+        <mat-icon [style.color]="'var(--text-inverse)'">account_circle</mat-icon>
+      </div>
+
+      <!-- Mock Sidebar + Content -->
+      <div class="mock-body">
+        <!-- Sidebar -->
+        <div class="mock-sidebar" [style.background-color]="'var(--bg-elevated)'">
+          <div
+            class="mock-nav-item"
+            *ngFor="let item of mockNavItems"
+            [class.active]="item.active"
+            [style.background-color]="item.active ? 'var(--color-primary-hover)' : 'transparent'"
+            [style.color]="item.active ? 'var(--color-primary)' : 'var(--text-secondary)'"
+          >
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
+          </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="mock-content" [style.background-color]="'var(--bg-secondary)'">
+          <!-- Mock Card -->
+          <div class="mock-card" [style.background-color]="'var(--bg-elevated)'">
+            <div class="mock-card-header">
+              <div class="mock-card-title" [style.color]="'var(--text-primary)'">Tarjeta de Ejemplo</div>
+              <div class="mock-card-subtitle" [style.color]="'var(--text-secondary)'">Subtítulo informativo</div>
+            </div>
+
+            <div class="mock-card-content">
+              <div class="mock-text-line" [style.background-color]="'var(--text-primary)'"></div>
+              <div class="mock-text-line short" [style.background-color]="'var(--text-secondary)'"></div>
+              <div class="mock-text-line medium" [style.background-color]="'var(--text-secondary)'"></div>
+            </div>
+
+            <div class="mock-card-actions">
+              <button mat-raised-button color="primary" class="mock-button">
+                Acción Principal
+              </button>
+              <button mat-button class="mock-button">Cancelar</button>
+            </div>
+          </div>
+
+          <!-- Mock Chips -->
+          <div class="mock-chips">
+            <div class="mock-chip" [style.background-color]="'var(--color-primary-bg)'" [style.color]="'var(--color-primary)'">
+              <mat-icon>check</mat-icon>
+              Activo
+            </div>
+            <div class="mock-chip" [style.background-color]="'var(--color-accent)'" [style.color]="'var(--text-inverse)'">
+              <mat-icon>star</mat-icon>
+              Destacado
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

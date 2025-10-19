@@ -1,0 +1,140 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.theme-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-base);
+  cursor: pointer;
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+  }
+
+  &.active {
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-bg);
+  }
+}
+
+::ng-deep .mat-mdc-card-header {
+  padding: var(--spacing-md) var(--spacing-md) 0 var(--spacing-md);
+}
+
+::ng-deep .mat-mdc-card-title,
+::ng-deep .mat-card-title {
+  color: var(--text-primary) !important;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 4px;
+}
+
+::ng-deep .mat-mdc-card-subtitle,
+::ng-deep .mat-card-subtitle {
+  color: var(--text-secondary) !important;
+  font-size: var(--font-size-sm);
+}
+
+.theme-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+mat-card-content {
+  flex: 1;
+  padding: var(--spacing-md) !important;
+}
+
+.color-preview {
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.preview-header {
+  padding: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+}
+
+.preview-toolbar {
+  display: flex;
+  gap: 4px;
+}
+
+.preview-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.preview-content {
+  padding: var(--spacing-md);
+  min-height: 80px;
+}
+
+.preview-chip {
+  width: 60px;
+  height: 24px;
+  border-radius: 12px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.preview-text {
+  .preview-line {
+    height: 8px;
+    background-color: currentColor;
+    opacity: 0.6;
+    border-radius: 4px;
+    margin-bottom: 6px;
+
+    &.short {
+      width: 60%;
+    }
+  }
+}
+
+.color-swatches {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.swatch {
+  flex: 1;
+  height: 32px;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+mat-card-actions {
+  padding: var(--spacing-md) !important;
+
+  button {
+    width: 100%;
+  }
+}
