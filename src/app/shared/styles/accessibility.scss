@@ -192,7 +192,6 @@ html.dark-theme,
 html[data-mode="dark"],
 [data-mode="dark"] {
   // Material components dark mode
-  .mat-toolbar,
   .mat-sidenav {
     background-color: var(--bg-secondary) !important;
     color: var(--text-primary) !important;
