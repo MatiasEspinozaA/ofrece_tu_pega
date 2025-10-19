@@ -26,7 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Subject, takeUntil, filter } from 'rxjs';
 import { MenuItem, UserInfo, AccessibilitySettings } from './oferente-layout.types';
-import { ThemeService } from '../../../branding/services/theme.service';
+import { BrandingFacade } from '../../../branding/presentation/branding.facade';
 
 @Component({
   selector: 'app-oferente-layout',
@@ -54,7 +54,7 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
   // Dependency Injection
   private readonly router = inject(Router);
   private readonly breakpointObserver = inject(BreakpointObserver);
-  private readonly themeService = inject(ThemeService);
+  private readonly brandingFacade = inject(BrandingFacade);
   private readonly destroy$ = new Subject<void>();
 
   // Component State
@@ -73,9 +73,9 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
   // Font Size Setting (separate from theme service)
   readonly fontSize = signal<'small' | 'normal' | 'large'>('normal');
 
-  // Accessibility Settings from Theme Service
-  readonly currentMode = this.themeService.mode;
-  readonly isDarkMode = computed(() => this.currentMode() === 'dark');
+  // Accessibility Settings from Branding Facade
+  readonly currentMode = this.brandingFacade.vm.mode;
+  readonly isDarkMode = this.brandingFacade.vm.isDarkMode;
 
   // Menu Items Configuration
   readonly menuItems: readonly MenuItem[] = [
@@ -264,10 +264,10 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Toggle dark mode - delegates to ThemeService
+   * Toggle dark mode - delegates to BrandingFacade
    */
   toggleDarkMode(): void {
-    this.themeService.toggleMode();
+    this.brandingFacade.toggleMode();
   }
 
   /**
@@ -277,8 +277,8 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
     // Reset font size
     this.setFontSize('normal');
 
-    // Reset theme to defaults via ThemeService
-    this.themeService.resetToDefaults();
+    // Reset theme to defaults via BrandingFacade
+    this.brandingFacade.resetToDefaults();
   }
 
   /**

@@ -15,7 +15,13 @@
       "Bash(dir srcappfeatures /S /B)",
       "Bash(findstr /V \"node_modules\")",
       "Bash(mkdir -p src/app/features/oferente/products/domain src/app/features/oferente/products/application src/app/features/oferente/products/infrastructure src/app/features/oferente/products/presentation)",
-      "Bash(find src/app -type f -name \"*.component.ts\" -exec dirname {})"
+      "Bash(find src/app -type f -name \"*.component.ts\" -exec dirname {})",
+      "mcp__ide__getDiagnostics",
+      "Bash(dir \"src\\app\\features\\oferente\\branding\" /B)",
+      "Bash(npx tsc --noEmit)",
+      "Bash(tree \"src/app/features/oferente/branding\" /F /A)",
+      "Bash(test -f \"src/app/features/oferente/branding/branding.routes.ts\")",
+      "Bash(cat \"src/app/features/oferente/branding/branding.routes.ts\")"
     ],
     "deny": [],
     "ask": []

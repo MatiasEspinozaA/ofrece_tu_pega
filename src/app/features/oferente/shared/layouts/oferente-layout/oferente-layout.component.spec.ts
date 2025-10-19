@@ -2,28 +2,35 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { of } from 'rxjs';
+import { of, signal, computed } from 'rxjs';
 
 import { OferenteLayoutComponent } from './oferente-layout.component';
-import { ThemeService } from '../../../branding/services/theme.service';
+import { BrandingFacade } from '../../../branding/presentation/branding.facade';
 
 describe('OferenteLayoutComponent', () => {
   let component: OferenteLayoutComponent;
   let fixture: ComponentFixture<OferenteLayoutComponent>;
   let mockBreakpointObserver: jasmine.SpyObj<BreakpointObserver>;
-  let mockThemeService: jasmine.SpyObj<ThemeService>;
+  let mockBrandingFacade: jasmine.SpyObj<BrandingFacade>;
 
   beforeEach(async () => {
     // Create mocks
     mockBreakpointObserver = jasmine.createSpyObj('BreakpointObserver', ['observe']);
     mockBreakpointObserver.observe.and.returnValue(of({ matches: false, breakpoints: {} }));
 
-    mockThemeService = jasmine.createSpyObj('ThemeService', [
+    // Create mock BrandingFacade with vm property
+    mockBrandingFacade = jasmine.createSpyObj('BrandingFacade', [
       'toggleMode',
       'resetToDefaults',
     ]);
-    Object.defineProperty(mockThemeService, 'mode', {
-      get: () => jasmine.createSpy().and.returnValue('light'),
+    // Mock the vm property with signals
+    const mockMode = signal<'light' | 'dark'>('light');
+    const mockIsDarkMode = computed(() => mockMode() === 'dark');
+    Object.defineProperty(mockBrandingFacade, 'vm', {
+      get: () => ({
+        mode: mockMode.asReadonly(),
+        isDarkMode: mockIsDarkMode,
+      }),
     });
 
     await TestBed.configureTestingModule({
@@ -34,7 +41,7 @@ describe('OferenteLayoutComponent', () => {
       ],
       providers: [
         { provide: BreakpointObserver, useValue: mockBreakpointObserver },
-        { provide: ThemeService, useValue: mockThemeService },
+        { provide: BrandingFacade, useValue: mockBrandingFacade },
       ],
     }).compileComponents();
 
@@ -146,9 +153,9 @@ describe('OferenteLayoutComponent', () => {
   });
 
   describe('Dark Mode', () => {
-    it('should delegate dark mode toggle to ThemeService', () => {
+    it('should delegate dark mode toggle to BrandingFacade', () => {
       component.toggleDarkMode();
-      expect(mockThemeService.toggleMode).toHaveBeenCalled();
+      expect(mockBrandingFacade.toggleMode).toHaveBeenCalled();
     });
   });
 
@@ -159,9 +166,9 @@ describe('OferenteLayoutComponent', () => {
       expect(component.fontSize()).toBe('normal');
     });
 
-    it('should call ThemeService resetToDefaults', () => {
+    it('should call BrandingFacade resetToDefaults', () => {
       component.resetAccessibilitySettings();
-      expect(mockThemeService.resetToDefaults).toHaveBeenCalled();
+      expect(mockBrandingFacade.resetToDefaults).toHaveBeenCalled();
     });
   });
 

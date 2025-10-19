@@ -10,10 +10,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ThemeService } from '../services/theme.service';
-import { getAllThemeIds, getThemeById, getAllFonts } from '../infrastructure/theme-definitions.repository';
+import { BrandingFacade } from '../branding.facade';
+import { getAllThemeIds, getThemeById, getAllFonts } from '../../infrastructure/theme-definitions.repository';
 import { ThemeCardComponent } from '../components/theme-card/theme-card.component';
-import { ThemeId, FontFamily } from '../domain/entities';
+import { ThemeId, FontFamily } from '../../domain/entities';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -47,7 +47,7 @@ const BRANDING_I18N = {
   styleUrl: './branding-theme-picker.component.scss',
 })
 export class BrandingThemePickerComponent implements OnInit {
-  private readonly themeService = inject(ThemeService);
+  private readonly facade = inject(BrandingFacade);
 
   // i18n
   readonly i18n = BRANDING_I18N;
@@ -58,17 +58,16 @@ export class BrandingThemePickerComponent implements OnInit {
   // Font Options
   readonly fontOptions = getAllFonts();
 
-  // Current state from service
-  readonly currentTheme = this.themeService.theme;
-  readonly currentMode = this.themeService.mode;
-  readonly currentFont = this.themeService.fontFamily;
+  // Current state from facade
+  readonly currentTheme = this.facade.vm.theme;
+  readonly currentMode = this.facade.vm.mode;
+  readonly currentFont = this.facade.vm.fontFamily;
 
   // Computed
-  readonly isDarkMode = computed(() => this.currentMode() === 'dark');
+  readonly isDarkMode = this.facade.vm.isDarkMode;
 
   ngOnInit(): void {
-    // Ensure theme is applied on init
-    this.themeService.applyToDocument();
+    // Theme is already applied by facade on init
   }
 
   /**
@@ -82,20 +81,20 @@ export class BrandingThemePickerComponent implements OnInit {
    * Select a theme
    */
   selectTheme(themeId: string): void {
-    this.themeService.setTheme(themeId as ThemeId);
+    this.facade.setTheme(themeId as ThemeId);
   }
 
   /**
    * Toggle dark mode
    */
   toggleDarkMode(): void {
-    this.themeService.toggleMode();
+    this.facade.toggleMode();
   }
 
   /**
    * Set font family
    */
   setFont(fontFamily: FontFamily): void {
-    this.themeService.setFont(fontFamily);
+    this.facade.setFont(fontFamily);
   }
 }

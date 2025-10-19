@@ -2,36 +2,39 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BrandingThemePickerComponent } from './branding-theme-picker.component';
-import { ThemeService } from '../services/theme.service';
-import { signal } from '@angular/core';
+import { BrandingFacade } from '../branding.facade';
+import { signal, computed } from '@angular/core';
 
 describe('BrandingThemePickerComponent', () => {
   let component: BrandingThemePickerComponent;
   let fixture: ComponentFixture<BrandingThemePickerComponent>;
-  let mockThemeService: jasmine.SpyObj<ThemeService>;
+  let mockBrandingFacade: jasmine.SpyObj<BrandingFacade>;
 
   beforeEach(async () => {
-    mockThemeService = jasmine.createSpyObj('ThemeService', [
+    mockBrandingFacade = jasmine.createSpyObj('BrandingFacade', [
       'setTheme',
       'toggleMode',
       'setFont',
-      'applyToDocument',
     ]);
 
-    // Mock signals
-    Object.defineProperty(mockThemeService, 'theme', {
-      get: () => signal('default'),
-    });
-    Object.defineProperty(mockThemeService, 'mode', {
-      get: () => signal('light'),
-    });
-    Object.defineProperty(mockThemeService, 'fontFamily', {
-      get: () => signal('inter'),
+    // Mock the vm property with signals
+    const mockTheme = signal<any>('violet');
+    const mockMode = signal<'light' | 'dark'>('light');
+    const mockFontFamily = signal<any>('roboto');
+    const mockIsDarkMode = computed(() => mockMode() === 'dark');
+
+    Object.defineProperty(mockBrandingFacade, 'vm', {
+      get: () => ({
+        theme: mockTheme.asReadonly(),
+        mode: mockMode.asReadonly(),
+        fontFamily: mockFontFamily.asReadonly(),
+        isDarkMode: mockIsDarkMode,
+      }),
     });
 
     await TestBed.configureTestingModule({
       imports: [BrandingThemePickerComponent, NoopAnimationsModule],
-      providers: [{ provide: ThemeService, useValue: mockThemeService }],
+      providers: [{ provide: BrandingFacade, useValue: mockBrandingFacade }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BrandingThemePickerComponent);
@@ -44,10 +47,6 @@ describe('BrandingThemePickerComponent', () => {
   });
 
   describe('Initialization', () => {
-    it('should apply theme to document on init', () => {
-      expect(mockThemeService.applyToDocument).toHaveBeenCalled();
-    });
-
     it('should have theme IDs loaded', () => {
       expect(component.themeIds.length).toBeGreaterThan(0);
     });
@@ -60,20 +59,20 @@ describe('BrandingThemePickerComponent', () => {
   describe('Theme Selection', () => {
     it('should select a theme', () => {
       component.selectTheme('ocean');
-      expect(mockThemeService.setTheme).toHaveBeenCalledWith('ocean');
+      expect(mockBrandingFacade.setTheme).toHaveBeenCalledWith('ocean');
     });
 
     it('should get theme by id', () => {
-      const theme = component.getTheme('default');
+      const theme = component.getTheme('violet');
       expect(theme).toBeDefined();
-      expect(theme.id).toBe('default');
+      expect(theme.id).toBe('violet');
     });
   });
 
   describe('Dark Mode', () => {
     it('should toggle dark mode', () => {
       component.toggleDarkMode();
-      expect(mockThemeService.toggleMode).toHaveBeenCalled();
+      expect(mockBrandingFacade.toggleMode).toHaveBeenCalled();
     });
 
     it('should compute dark mode state correctly', () => {
@@ -84,7 +83,7 @@ describe('BrandingThemePickerComponent', () => {
   describe('Font Selection', () => {
     it('should set font family', () => {
       component.setFont('roboto');
-      expect(mockThemeService.setFont).toHaveBeenCalledWith('roboto');
+      expect(mockBrandingFacade.setFont).toHaveBeenCalledWith('roboto');
     });
   });
 

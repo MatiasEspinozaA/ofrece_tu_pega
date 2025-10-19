@@ -46,7 +46,7 @@ export const OFERENTE_ROUTES: Routes = [
       {
         path: 'branding',
         loadChildren: () =>
-          import('./branding/branding.routes').then(m => m.BRANDING_ROUTES),
+          import('./branding/presentation/routes').then(m => m.BRANDING_ROUTES),
       },
       {
         path: 'analytics',
