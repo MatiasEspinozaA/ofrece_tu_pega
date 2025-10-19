@@ -142,11 +142,11 @@
     mat-menu-item
     (click)="decreaseFontSize()"
     aria-label="Disminuir tamaño de texto"
-    [disabled]="accessibilitySettings().fontSize === 'small'"
+    [disabled]="fontSize() === 'small'"
   >
     <mat-icon aria-hidden="true">text_decrease</mat-icon>
     <span>Pequeño</span>
-    @if (accessibilitySettings().fontSize === 'small') {
+    @if (fontSize() === 'small') {
       <span class="status-badge active">ACTIVO</span>
     }
   </button>
@@ -154,11 +154,11 @@
     mat-menu-item
     (click)="setFontSize('normal')"
     aria-label="Tamaño de texto normal"
-    [disabled]="accessibilitySettings().fontSize === 'normal'"
+    [disabled]="fontSize() === 'normal'"
   >
     <mat-icon aria-hidden="true">text_fields</mat-icon>
     <span>Normal</span>
-    @if (accessibilitySettings().fontSize === 'normal') {
+    @if (fontSize() === 'normal') {
       <span class="status-badge active">ACTIVO</span>
     }
   </button>
@@ -166,11 +166,11 @@
     mat-menu-item
     (click)="increaseFontSize()"
     aria-label="Aumentar tamaño de texto"
-    [disabled]="accessibilitySettings().fontSize === 'large'"
+    [disabled]="fontSize() === 'large'"
   >
     <mat-icon aria-hidden="true">text_increase</mat-icon>
     <span>Grande</span>
-    @if (accessibilitySettings().fontSize === 'large') {
+    @if (fontSize() === 'large') {
       <span class="status-badge active">ACTIVO</span>
     }
   </button>
@@ -183,11 +183,11 @@
     mat-menu-item
     (click)="toggleDarkMode()"
     aria-label="Alternar modo oscuro"
-    [attr.aria-pressed]="accessibilitySettings().theme === 'dark'"
+    [attr.aria-pressed]="isDarkMode()"
   >
     <mat-icon aria-hidden="true">dark_mode</mat-icon>
     <span>Modo oscuro</span>
-    @if (accessibilitySettings().theme === 'dark') {
+    @if (isDarkMode()) {
       <span class="status-badge on">ON</span>
     } @else {
       <span class="status-badge off">OFF</span>

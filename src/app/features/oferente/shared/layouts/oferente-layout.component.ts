@@ -26,6 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Subject, takeUntil, filter } from 'rxjs';
 import { MenuItem, UserInfo, AccessibilitySettings } from './oferente-layout.types';
+import { ThemeService } from '../../branding/services/theme.service';
 
 @Component({
   selector: 'app-oferente-layout',
@@ -50,6 +51,7 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
   // Dependency Injection
   private readonly router = inject(Router);
   private readonly breakpointObserver = inject(BreakpointObserver);
+  private readonly themeService = inject(ThemeService);
   private readonly destroy$ = new Subject<void>();
 
   // Component State
@@ -65,11 +67,12 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
     role: 'Oferente',
   });
 
-  // Accessibility Settings
-  readonly accessibilitySettings = signal<AccessibilitySettings>({
-    fontSize: 'normal',
-    theme: 'light',
-  });
+  // Font Size Setting (separate from theme service)
+  readonly fontSize = signal<'small' | 'normal' | 'large'>('normal');
+
+  // Accessibility Settings from Theme Service
+  readonly currentMode = this.themeService.mode;
+  readonly isDarkMode = computed(() => this.currentMode() === 'dark');
 
   // Menu Items Configuration
   readonly menuItems: readonly MenuItem[] = [
@@ -147,7 +150,7 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.setupResponsiveLayout();
     this.setupRouterTracking();
-    this.loadAccessibilitySettings();
+    this.loadFontSizeSetting();
   }
 
   ngOnDestroy(): void {
@@ -190,43 +193,30 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Load accessibility settings from localStorage
+   * Load font size setting from localStorage
    */
-  private loadAccessibilitySettings(): void {
-    const saved = localStorage.getItem('accessibility-settings');
-    if (saved) {
-      try {
-        const settings = JSON.parse(saved) as AccessibilitySettings;
-        this.accessibilitySettings.set(settings);
-        this.applyAccessibilitySettings(settings);
-      } catch (error) {
-        console.error('Error loading accessibility settings:', error);
-      }
+  private loadFontSizeSetting(): void {
+    const saved = localStorage.getItem('accessibility.fontSize');
+    if (saved && (saved === 'small' || saved === 'normal' || saved === 'large')) {
+      this.fontSize.set(saved);
+      this.applyFontSize(saved);
     }
   }
 
   /**
-   * Save accessibility settings to localStorage
+   * Save font size setting to localStorage
    */
-  private saveAccessibilitySettings(): void {
-    localStorage.setItem(
-      'accessibility-settings',
-      JSON.stringify(this.accessibilitySettings())
-    );
+  private saveFontSizeSetting(size: 'small' | 'normal' | 'large'): void {
+    localStorage.setItem('accessibility.fontSize', size);
   }
 
   /**
-   * Apply accessibility settings to document
+   * Apply font size setting to document
    */
-  private applyAccessibilitySettings(settings: AccessibilitySettings): void {
+  private applyFontSize(size: 'small' | 'normal' | 'large'): void {
     const root = document.documentElement;
-
-    // Font size
     root.classList.remove('font-small', 'font-normal', 'font-large');
-    root.classList.add(`font-${settings.fontSize}`);
-
-    // Theme
-    root.classList.toggle('dark-theme', settings.theme === 'dark');
+    root.classList.add(`font-${size}`);
   }
 
   /**
@@ -247,60 +237,45 @@ export class OferenteLayoutComponent implements OnInit, OnDestroy {
    * Set specific font size
    */
   setFontSize(size: 'small' | 'normal' | 'large'): void {
-    this.updateAccessibilitySetting('fontSize', size);
+    this.fontSize.set(size);
+    this.applyFontSize(size);
+    this.saveFontSizeSetting(size);
   }
 
   /**
    * Increase font size
    */
   increaseFontSize(): void {
-    const current = this.accessibilitySettings().fontSize;
+    const current = this.fontSize();
     const newSize = current === 'small' ? 'normal' : 'large';
-    this.updateAccessibilitySetting('fontSize', newSize);
+    this.setFontSize(newSize);
   }
 
   /**
    * Decrease font size
    */
   decreaseFontSize(): void {
-    const current = this.accessibilitySettings().fontSize;
+    const current = this.fontSize();
     const newSize = current === 'large' ? 'normal' : 'small';
-    this.updateAccessibilitySetting('fontSize', newSize);
+    this.setFontSize(newSize);
   }
 
   /**
-   * Toggle dark mode
+   * Toggle dark mode - delegates to ThemeService
    */
   toggleDarkMode(): void {
-    const current = this.accessibilitySettings().theme;
-    const newTheme = current === 'light' ? 'dark' : 'light';
-    this.updateAccessibilitySetting('theme', newTheme);
-  }
-
-  /**
-   * Update specific accessibility setting
-   */
-  private updateAccessibilitySetting<K extends keyof AccessibilitySettings>(
-    key: K,
-    value: AccessibilitySettings[K]
-  ): void {
-    const updated = { ...this.accessibilitySettings(), [key]: value };
-    this.accessibilitySettings.set(updated);
-    this.applyAccessibilitySettings(updated);
-    this.saveAccessibilitySettings();
+    this.themeService.toggleMode();
   }
 
   /**
    * Reset all accessibility settings to defaults
    */
   resetAccessibilitySettings(): void {
-    const defaultSettings: AccessibilitySettings = {
-      fontSize: 'normal',
-      theme: 'light',
-    };
-    this.accessibilitySettings.set(defaultSettings);
-    this.applyAccessibilitySettings(defaultSettings);
-    this.saveAccessibilitySettings();
+    // Reset font size
+    this.setFontSize('normal');
+
+    // Reset theme to defaults via ThemeService
+    this.themeService.resetToDefaults();
   }
 
   /**
