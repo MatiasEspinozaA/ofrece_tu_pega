@@ -21,7 +21,9 @@
       "Bash(npx tsc --noEmit)",
       "Bash(tree \"src/app/features/oferente/branding\" /F /A)",
       "Bash(test -f \"src/app/features/oferente/branding/branding.routes.ts\")",
-      "Bash(cat \"src/app/features/oferente/branding/branding.routes.ts\")"
+      "Bash(cat \"src/app/features/oferente/branding/branding.routes.ts\")",
+      "Bash(dir /S /B *.md)",
+      "Bash(del ARCHITECTURE.md HDU.MD SETUP-ICONS.md CRUD-GUIDE.md REFACTORING-SUMMARY.md SESSION-SUMMARY.md ACCESSIBILITY-FEATURES.md DARK-MODE-FIX.md prompt.md)"
     ],
     "deny": [],
     "ask": []
