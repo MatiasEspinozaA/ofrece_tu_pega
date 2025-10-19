@@ -14,7 +14,8 @@
       "Bash(tree src/app/features /F /A)",
       "Bash(dir srcappfeatures /S /B)",
       "Bash(findstr /V \"node_modules\")",
-      "Bash(mkdir -p src/app/features/oferente/products/domain src/app/features/oferente/products/application src/app/features/oferente/products/infrastructure src/app/features/oferente/products/presentation)"
+      "Bash(mkdir -p src/app/features/oferente/products/domain src/app/features/oferente/products/application src/app/features/oferente/products/infrastructure src/app/features/oferente/products/presentation)",
+      "Bash(find src/app -type f -name \"*.component.ts\" -exec dirname {})"
     ],
     "deny": [],
     "ask": []

@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { CrudTableComponent } from '../../../../shared/components/crud/crud-table.component';
-import { CrudFormDialogComponent, FormField } from '../../../../shared/components/crud/crud-form-dialog.component';
-import { CrudConfig } from '../../../../shared/components/crud/crud-table.types';
+import { CrudTableComponent } from '../../../../shared/components/crud/crud-table/crud-table.component';
+import { CrudFormDialogComponent, FormField } from '../../../../shared/components/crud/crud-form-dialog/crud-form-dialog.component';
+import { CrudConfig } from '../../../../shared/components/crud/crud-table/crud-table.types';
 import { OferenteProductsFacade } from './oferente-products.facade';
 import { OferenteProduct } from '../domain/entities';
 
