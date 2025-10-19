@@ -1,23 +1,13 @@
-// Oferente Products Page Component
+// Oferente Products Page Component - Refactored with Clean Architecture
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { CrudTableComponent } from '../../../shared/components/crud/crud-table.component';
-import { CrudFormDialogComponent, FormField } from '../../../shared/components/crud/crud-form-dialog.component';
-import { CrudConfig, CrudColumn, CrudAction } from '../../../shared/components/crud/crud-table.types';
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  stock: number;
-  active: boolean;
-  imageUrl?: string;
-  createdAt: Date;
-}
+import { CrudTableComponent } from '../../../../shared/components/crud/crud-table.component';
+import { CrudFormDialogComponent, FormField } from '../../../../shared/components/crud/crud-form-dialog.component';
+import { CrudConfig } from '../../../../shared/components/crud/crud-table.types';
+import { OferenteProductsFacade } from './oferente-products.facade';
+import { OferenteProduct } from '../domain/entities';
 
 @Component({
   selector: 'app-oferente-products',
@@ -31,7 +21,7 @@ interface Product {
   template: `
     <app-crud-table
       [config]="crudConfig"
-      [data]="products"
+      [data]="facade.vm.products()"
       (onCreate)="openCreateDialog()"
       (onEdit)="openEditDialog($event)"
       (onDelete)="confirmDelete($event)"
@@ -39,9 +29,7 @@ interface Product {
   `,
 })
 export class OferenteProductsPageComponent implements OnInit {
-  products: Product[] = [];
-
-  crudConfig: CrudConfig<Product> = {
+  crudConfig: CrudConfig<OferenteProduct> = {
     title: 'Mis Productos',
     showSearch: true,
     showCreate: true,
@@ -180,72 +168,13 @@ export class OferenteProductsPageComponent implements OnInit {
   ];
 
   constructor(
+    readonly facade: OferenteProductsFacade,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    this.loadProducts();
-  }
-
-  loadProducts(): void {
-    // Mock data - Replace with actual API call
-    this.products = [
-      {
-        id: '1',
-        name: 'Notebook HP Pavilion',
-        description: 'Laptop de alto rendimiento con 16GB RAM y SSD 512GB',
-        price: 599990,
-        category: 'Electrónica',
-        stock: 5,
-        active: true,
-        imageUrl: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200',
-        createdAt: new Date('2025-01-15'),
-      },
-      {
-        id: '2',
-        name: 'Mouse Logitech MX Master 3',
-        description: 'Mouse ergonómico inalámbrico premium',
-        price: 89990,
-        category: 'Electrónica',
-        stock: 12,
-        active: true,
-        imageUrl: 'https://images.unsplash.com/photo-1527814050087-3793815479db?w=200',
-        createdAt: new Date('2025-01-20'),
-      },
-      {
-        id: '3',
-        name: 'Teclado Mecánico RGB',
-        description: 'Teclado gaming con switches azules',
-        price: 79990,
-        category: 'Electrónica',
-        stock: 0,
-        active: false,
-        createdAt: new Date('2025-02-01'),
-      },
-      {
-        id: '4',
-        name: 'Monitor LG 27" 4K',
-        description: 'Monitor IPS 4K HDR con 99% sRGB',
-        price: 349990,
-        category: 'Electrónica',
-        stock: 3,
-        active: true,
-        imageUrl: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=200',
-        createdAt: new Date('2025-02-10'),
-      },
-      {
-        id: '5',
-        name: 'Silla Gamer Ergonómica',
-        description: 'Silla de oficina con soporte lumbar ajustable',
-        price: 189990,
-        category: 'Hogar',
-        stock: 8,
-        active: true,
-        imageUrl: 'https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=200',
-        createdAt: new Date('2025-03-05'),
-      },
-    ];
+    this.facade.loadProducts();
   }
 
   openCreateDialog(): void {
@@ -260,12 +189,13 @@ export class OferenteProductsPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.createProduct(result);
+        this.facade.createProduct(result);
+        this.showMessage('Producto creado exitosamente');
       }
     });
   }
 
-  openEditDialog(product: Product): void {
+  openEditDialog(product: OferenteProduct): void {
     const dialogRef = this.dialog.open(CrudFormDialogComponent, {
       width: '600px',
       data: {
@@ -278,53 +208,25 @@ export class OferenteProductsPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.updateProduct(product.id, result);
+        this.facade.updateProduct(product.id, result);
+        this.showMessage('Producto actualizado exitosamente');
       }
     });
   }
 
-  createProduct(data: Partial<Product>): void {
-    const newProduct: Product = {
-      ...data as Product,
-      id: Math.random().toString(36).substr(2, 9),
-      createdAt: new Date(),
-    };
-
-    this.products = [...this.products, newProduct];
-    this.showMessage('Producto creado exitosamente');
-  }
-
-  updateProduct(id: string, data: Partial<Product>): void {
-    this.products = this.products.map(p =>
-      p.id === id ? { ...p, ...data } : p
-    );
-    this.showMessage('Producto actualizado exitosamente');
-  }
-
-  confirmDelete(product: Product): void {
+  confirmDelete(product: OferenteProduct): void {
     if (confirm(`¿Estás seguro de eliminar "${product.name}"?`)) {
-      this.deleteProduct(product.id);
+      this.facade.deleteProduct(product.id);
+      this.showMessage('Producto eliminado exitosamente');
     }
   }
 
-  deleteProduct(id: string): void {
-    this.products = this.products.filter(p => p.id !== id);
-    this.showMessage('Producto eliminado exitosamente');
-  }
-
-  duplicateProduct(product: Product): void {
-    const duplicated: Product = {
-      ...product,
-      id: Math.random().toString(36).substr(2, 9),
-      name: `${product.name} (Copia)`,
-      active: false,
-      createdAt: new Date(),
-    };
-    this.products = [...this.products, duplicated];
+  duplicateProduct(product: OferenteProduct): void {
+    this.facade.duplicateProduct(product.id);
     this.showMessage('Producto duplicado exitosamente');
   }
 
-  viewPublic(product: Product): void {
+  viewPublic(product: OferenteProduct): void {
     // TODO: Navigate to public view
     this.showMessage(`Ver "${product.name}" en sitio público`);
   }

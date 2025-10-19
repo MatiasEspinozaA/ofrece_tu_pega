@@ -8,7 +8,13 @@
       "Bash(taskkill //F //PID 1952)",
       "Bash(findstr /C:\"Application bundle\" /C:\"ERROR\" /C:\"WARNING\")",
       "Bash(taskkill /F /PID 12816)",
-      "Bash(taskkill //F //PID 12816)"
+      "Bash(taskkill //F //PID 12816)",
+      "Bash(for file in \"src/app/features/oferente/dashboard/dashboard.page.ts\" \"src/app/features/oferente/products/products.page.ts\" \"src/app/features/products/presentation/products.page.ts\" \"src/app/shared/components/crud/crud-form-dialog.component.ts\" \"src/app/shared/components/crud/crud-table.component.ts\" \"src/app/shared/ui/shell/shell.component.ts\")",
+      "Bash(done)",
+      "Bash(tree src/app/features /F /A)",
+      "Bash(dir srcappfeatures /S /B)",
+      "Bash(findstr /V \"node_modules\")",
+      "Bash(mkdir -p src/app/features/oferente/products/domain src/app/features/oferente/products/application src/app/features/oferente/products/infrastructure src/app/features/oferente/products/presentation)"
     ],
     "deny": [],
     "ask": []

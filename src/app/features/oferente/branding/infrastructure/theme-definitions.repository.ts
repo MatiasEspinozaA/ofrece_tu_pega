@@ -3,7 +3,9 @@
  * Central repository of all available themes with their token definitions
  */
 
-import { ThemeDefinition, ThemeId, FontOption, FontFamily } from '../models/theme.types';
+import { Injectable } from '@angular/core';
+import { ThemeDefinition, ThemeId, FontOption, FontFamily } from '../domain/entities';
+import { IThemeDefinitionsRepository } from '../domain/ports';
 
 /**
  * Complete theme definitions
@@ -416,4 +418,18 @@ export function getAllFonts(): readonly FontOption[] {
  */
 export function getFontById(id: FontFamily): FontOption | undefined {
   return FONT_OPTIONS.find(font => font.id === id);
+}
+
+/**
+ * Static implementation of theme definitions repository
+ */
+@Injectable()
+export class StaticThemeDefinitionsRepository implements IThemeDefinitionsRepository {
+  getAllThemes(): ThemeDefinition[] {
+    return Object.values(THEME_DEFINITIONS);
+  }
+
+  getThemeById(id: ThemeId): ThemeDefinition | undefined {
+    return THEME_DEFINITIONS[id];
+  }
 }

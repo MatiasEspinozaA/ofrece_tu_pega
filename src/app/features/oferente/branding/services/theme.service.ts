@@ -4,8 +4,8 @@
  */
 
 import { Injectable, signal, computed, effect } from '@angular/core';
-import { ThemeId, ThemeMode, ThemeState, FontFamily } from '../models/theme.types';
-import { THEME_DEFINITIONS, getFontById } from './theme.registry';
+import { ThemeId, ThemeMode, ThemeState, FontFamily } from '../domain/entities';
+import { THEME_DEFINITIONS, getFontById } from '../infrastructure/theme-definitions.repository';
 
 const STORAGE_KEYS = {
   THEME: 'app.theme',

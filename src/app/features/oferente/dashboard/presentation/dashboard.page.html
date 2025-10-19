@@ -1,0 +1,67 @@
+<div class="dashboard-page">
+  <div class="page-header">
+    <h1>Dashboard</h1>
+    <p class="subtitle">Bienvenido de vuelta, aquí está el resumen de tu negocio</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid row">
+    @for (card of statsCards(); track card.title) {
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
+        <mat-card class="stat-card" [style.border-left-color]="card.color">
+          <div class="stat-icon" [style.background-color]="card.color + '20'">
+            <mat-icon [style.color]="card.color">{{ card.icon }}</mat-icon>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">{{ card.title }}</div>
+            <div class="stat-value">{{ card.value }}</div>
+            @if (card.change) {
+              <div class="stat-change" [class.positive]="card.change.includes('+')">
+                {{ card.change }}
+              </div>
+            }
+          </div>
+        </mat-card>
+      </div>
+    }
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="section">
+    <h2>Acciones Rápidas</h2>
+    <div class="actions-grid row">
+      @for (action of quickActions(); track action.id) {
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+          <mat-card class="action-card" [routerLink]="action.route">
+            <mat-icon [style.color]="action.color">{{ action.icon }}</mat-icon>
+            <h3>{{ action.title }}</h3>
+            <p>{{ action.description }}</p>
+          </mat-card>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="section">
+    <h2>Actividad Reciente</h2>
+    <mat-card class="activity-card">
+      @for (activity of recentActivity(); track activity.id) {
+        <div class="activity-item">
+          <div class="activity-icon">
+            <mat-icon>{{ activity.icon }}</mat-icon>
+          </div>
+          <div class="activity-content">
+            <div class="activity-title">{{ activity.title }}</div>
+            <div class="activity-time">{{ activity.time }}</div>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <mat-icon>inbox</mat-icon>
+          <p>No hay actividad reciente</p>
+        </div>
+      }
+    </mat-card>
+  </div>
+</div>

@@ -11,9 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from '../services/theme.service';
-import { getAllThemeIds, getThemeById, getAllFonts } from '../services/theme.registry';
+import { getAllThemeIds, getThemeById, getAllFonts } from '../infrastructure/theme-definitions.repository';
 import { ThemeCardComponent } from '../components/theme-card/theme-card.component';
-import { ThemeId, FontFamily } from '../models/theme.types';
+import { ThemeId, FontFamily } from '../domain/entities';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 

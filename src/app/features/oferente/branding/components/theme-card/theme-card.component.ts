@@ -8,8 +8,8 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ThemeDefinition, ThemeMode } from '../../models/theme.types';
-import { getThemePalette } from '../../services/theme.registry';
+import { ThemeDefinition, ThemeMode } from '../../domain/entities';
+import { getThemePalette } from '../../infrastructure/theme-definitions.repository';
 
 @Component({
   selector: 'app-theme-card',
