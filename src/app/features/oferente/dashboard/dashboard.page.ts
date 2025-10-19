@@ -170,11 +170,11 @@ interface DashboardCard {
 
             .stat-change {
               font-size: 12px;
-              color: #f44336;
+              color: var(--color-warn);
               margin-top: 4px;
 
               &.positive {
-                color: #4caf50;
+                color: var(--color-success);
               }
             }
           }
@@ -222,7 +222,7 @@ interface DashboardCard {
           align-items: center;
           gap: var(--spacing-md);
           padding: var(--spacing-md);
-          border-bottom: 1px solid #f0f0f0;
+          border-bottom: 1px solid var(--border-color);
 
           &:last-child {
             border-bottom: none;
@@ -231,7 +231,7 @@ interface DashboardCard {
           .activity-icon {
             width: 40px;
             height: 40px;
-            background-color: #f5f5f5;
+            background-color: var(--color-primary-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -266,7 +266,7 @@ interface DashboardCard {
             font-size: 64px;
             width: 64px;
             height: 64px;
-            color: #ccc;
+            color: var(--text-disabled);
           }
 
           p {
@@ -284,21 +284,21 @@ export class OferenteDashboardPageComponent {
       title: 'Visitas este mes',
       value: '1,234',
       icon: 'visibility',
-      color: '#673ab7',
+      color: 'var(--color-primary)',
       change: '+12.5%',
     },
     {
       title: 'Productos activos',
       value: 12,
       icon: 'inventory_2',
-      color: '#2196f3',
+      color: 'var(--color-primary)',
       route: '/oferente/products',
     },
     {
       title: 'Mensajes nuevos',
       value: 8,
       icon: 'mail',
-      color: '#ff9800',
+      color: 'var(--color-accent)',
       change: '+3',
       route: '/oferente/contacts',
     },
@@ -306,7 +306,7 @@ export class OferenteDashboardPageComponent {
       title: 'Servicios',
       value: 5,
       icon: 'home_repair_service',
-      color: '#4caf50',
+      color: 'var(--color-primary)',
       route: '/oferente/services',
     },
   ];
@@ -316,42 +316,42 @@ export class OferenteDashboardPageComponent {
       title: 'Agregar Producto',
       description: 'Crea un nuevo producto para tu catálogo',
       icon: 'add_shopping_cart',
-      color: '#673ab7',
+      color: 'var(--color-primary)',
       route: '/oferente/products',
     },
     {
       title: 'Publicar Noticia',
       description: 'Comparte novedades con tus clientes',
       icon: 'article',
-      color: '#2196f3',
+      color: 'var(--color-primary)',
       route: '/oferente/news',
     },
     {
       title: 'Editar Mi Espacio',
       description: 'Personaliza tu sitio web',
       icon: 'web',
-      color: '#ff9800',
+      color: 'var(--color-accent)',
       route: '/oferente/space',
     },
     {
       title: 'Ver Analítica',
       description: 'Revisa las métricas de tu negocio',
       icon: 'analytics',
-      color: '#4caf50',
+      color: 'var(--color-primary)',
       route: '/oferente/analytics',
     },
     {
       title: 'Configurar Marca',
       description: 'Ajusta logo, colores y diseño',
       icon: 'palette',
-      color: '#e91e63',
+      color: 'var(--color-accent)',
       route: '/oferente/branding',
     },
     {
       title: 'Ver Mi Plan',
       description: 'Gestiona tu suscripción',
       icon: 'workspace_premium',
-      color: '#9c27b0',
+      color: 'var(--color-primary)',
       route: '/oferente/subscription',
     },
   ];
