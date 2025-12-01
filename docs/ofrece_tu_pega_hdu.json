@@ -1,0 +1,651 @@
+{
+  "project": "Ofrece Tu Pega",
+  "version": "1.0",
+  "roles": [
+    {
+      "id": "SUPER_ADMIN",
+      "name": "Super Admin",
+      "description": "Administrador máximo de la plataforma",
+      "stories": [
+        {
+          "id": "SA-01",
+          "category": "System",
+          "title": "Login seguro",
+          "text": "Como Super Admin, quiero iniciar sesión de forma segura para acceder al panel administrativo."
+        },
+        {
+          "id": "SA-02",
+          "category": "System",
+          "title": "Dashboard general",
+          "text": "Como Super Admin, quiero ver un dashboard general con métricas globales para monitorear el estado de la plataforma."
+        },
+        {
+          "id": "SA-03",
+          "category": "System",
+          "title": "Configuración global",
+          "text": "Como Super Admin, quiero configurar parámetros globales (nombre, logo, colores, textos legales) para mantener coherencia de marca."
+        },
+        {
+          "id": "SA-04",
+          "category": "System",
+          "title": "Roles y permisos",
+          "text": "Como Super Admin, quiero gestionar roles y permisos para controlar accesos y privilegios en la plataforma."
+        },
+        {
+          "id": "SA-05",
+          "category": "Users",
+          "title": "Listado de usuarios",
+          "text": "Como Super Admin, quiero ver un listado de todos los usuarios con filtros por rol y estado para controlar la comunidad."
+        },
+        {
+          "id": "SA-06",
+          "category": "Users",
+          "title": "Estado de usuarios",
+          "text": "Como Super Admin, quiero activar, suspender o eliminar usuarios para mantener la seguridad del sistema."
+        },
+        {
+          "id": "SA-07",
+          "category": "Users",
+          "title": "Espacios por usuario",
+          "text": "Como Super Admin, quiero ver los espacios creados por cada usuario para entender su actividad."
+        },
+        {
+          "id": "SA-08",
+          "category": "Users",
+          "title": "Asignar roles",
+          "text": "Como Super Admin, quiero asignar o modificar roles a un usuario para definir sus permisos."
+        },
+        {
+          "id": "SA-09",
+          "category": "Users",
+          "title": "Reset de contraseña",
+          "text": "Como Super Admin, quiero poder resetear contraseñas o enviar enlaces de recuperación para asistir a usuarios bloqueados."
+        },
+        {
+          "id": "SA-10",
+          "category": "Spaces",
+          "title": "Listado de espacios",
+          "text": "Como Super Admin, quiero ver un listado de todos los espacios creados por oferentes para gestionarlos."
+        },
+        {
+          "id": "SA-11",
+          "category": "Spaces",
+          "title": "Aprobar/rechazar espacios",
+          "text": "Como Super Admin, quiero aprobar o rechazar espacios antes de que se publiquen para asegurar cumplimiento de políticas."
+        },
+        {
+          "id": "SA-12",
+          "category": "Spaces",
+          "title": "Editar espacio",
+          "text": "Como Super Admin, quiero editar detalles de un espacio para corregir errores o apoyar a un usuario."
+        },
+        {
+          "id": "SA-13",
+          "category": "Spaces",
+          "title": "Ver vista pública",
+          "text": "Como Super Admin, quiero abrir la vista pública de un espacio desde el panel para revisar cómo se muestra."
+        },
+        {
+          "id": "SA-14",
+          "category": "Spaces",
+          "title": "Bloquear/despublicar espacio",
+          "text": "Como Super Admin, quiero bloquear o despublicar un espacio cuando incumple las reglas de la plataforma."
+        },
+        {
+          "id": "SA-15",
+          "category": "Spaces",
+          "title": "Métricas por espacio",
+          "text": "Como Super Admin, quiero ver métricas de cada espacio (visitas, interacciones, componentes usados) para análisis."
+        },
+        {
+          "id": "SA-16",
+          "category": "Components",
+          "title": "CRUD tipos de componentes",
+          "text": "Como Super Admin, quiero crear, editar y eliminar tipos de componentes para controlar la librería de bloques disponibles."
+        },
+        {
+          "id": "SA-17",
+          "category": "Components",
+          "title": "Definir schema de componente",
+          "text": "Como Super Admin, quiero definir la estructura de datos de cada componente para validar la información que cargan los oferentes."
+        },
+        {
+          "id": "SA-18",
+          "category": "Components",
+          "title": "Asociar layout a componente",
+          "text": "Como Super Admin, quiero asociar plantillas visuales a cada tipo de componente para mantener consistencia visual."
+        },
+        {
+          "id": "SA-19",
+          "category": "Components",
+          "title": "Versionado de plantillas",
+          "text": "Como Super Admin, quiero gestionar versiones de plantillas para poder actualizar el diseño sin romper sitios existentes."
+        },
+        {
+          "id": "SA-20",
+          "category": "Components",
+          "title": "Previsualizar componente",
+          "text": "Como Super Admin, quiero previsualizar un componente con datos de ejemplo para validar su diseño antes de publicarlo."
+        },
+        {
+          "id": "SA-21",
+          "category": "Plans",
+          "title": "CRUD planes",
+          "text": "Como Super Admin, quiero crear y gestionar planes de suscripción para monetizar la plataforma."
+        },
+        {
+          "id": "SA-22",
+          "category": "Plans",
+          "title": "Asignar plan manualmente",
+          "text": "Como Super Admin, quiero asignar manualmente un plan a un espacio o usuario para casos especiales."
+        },
+        {
+          "id": "SA-23",
+          "category": "Plans",
+          "title": "Historial de pagos",
+          "text": "Como Super Admin, quiero ver el historial de pagos y facturación para control contable."
+        },
+        {
+          "id": "SA-24",
+          "category": "Plans",
+          "title": "Configurar límites por plan",
+          "text": "Como Super Admin, quiero configurar límites por plan (productos, componentes, almacenamiento) para diferenciar niveles."
+        },
+        {
+          "id": "SA-25",
+          "category": "Moderation",
+          "title": "Revisar reportes",
+          "text": "Como Super Admin, quiero revisar reportes de contenido o usuarios enviados por la comunidad para moderar la plataforma."
+        },
+        {
+          "id": "SA-26",
+          "category": "Moderation",
+          "title": "Notificaciones globales",
+          "text": "Como Super Admin, quiero enviar notificaciones o anuncios globales a los usuarios para comunicar cambios importantes."
+        },
+        {
+          "id": "SA-27",
+          "category": "Moderation",
+          "title": "Logs de actividad",
+          "text": "Como Super Admin, quiero ver logs de actividad de usuarios y administradores para auditorías y debugging."
+        },
+        {
+          "id": "SA-28",
+          "category": "Moderation",
+          "title": "Gestión de tickets",
+          "text": "Como Super Admin, quiero ver y gestionar tickets de soporte para atender solicitudes de los oferentes."
+        },
+        {
+          "id": "SA-29",
+          "category": "Infra",
+          "title": "Configurar integraciones",
+          "text": "Como Super Admin, quiero configurar integraciones externas (API keys, storage, pagos) para mantener el sistema funcional."
+        },
+        {
+          "id": "SA-30",
+          "category": "Infra",
+          "title": "Backups y restauración",
+          "text": "Como Super Admin, quiero gestionar backups y restauraciones de datos para prevenir pérdidas."
+        },
+        {
+          "id": "SA-31",
+          "category": "Infra",
+          "title": "Alertas de sistema",
+          "text": "Como Super Admin, quiero recibir alertas de fallos críticos para reaccionar rápidamente ante incidentes."
+        }
+      ]
+    },
+    {
+      "id": "OFERENTE",
+      "name": "Oferente",
+      "description": "Persona, local u organización que crea su página y ofrece productos/servicios",
+      "stories": [
+        {
+          "id": "OF-01",
+          "category": "Access",
+          "title": "Registro e inicio de sesión",
+          "text": "Como oferente, quiero registrarme e iniciar sesión para acceder a mi panel de gestión."
+        },
+        {
+          "id": "OF-02",
+          "category": "Access",
+          "title": "Dashboard propio",
+          "text": "Como oferente, quiero ver un dashboard con estadísticas básicas de mi espacio para medir impacto."
+        },
+        {
+          "id": "OF-03",
+          "category": "Access",
+          "title": "Ver plan actual",
+          "text": "Como oferente, quiero ver los detalles de mi plan actual para entender mis límites y beneficios."
+        },
+        {
+          "id": "OF-04",
+          "category": "Access",
+          "title": "Editar perfil",
+          "text": "Como oferente, quiero actualizar mis datos personales y de contacto para mantener mi información al día."
+        },
+        {
+          "id": "OF-05",
+          "category": "Branding",
+          "title": "Configurar marca",
+          "text": "Como oferente, quiero configurar la información general de mi marca para presentar mi negocio."
+        },
+        {
+          "id": "OF-06",
+          "category": "Branding",
+          "title": "Subir imágenes y videos",
+          "text": "Como oferente, quiero subir imágenes y videos para personalizar visualmente mi espacio."
+        },
+        {
+          "id": "OF-07",
+          "category": "Branding",
+          "title": "Elegir plantilla visual",
+          "text": "Como oferente, quiero elegir una plantilla visual entre opciones limitadas para definir el diseño de mi página."
+        },
+        {
+          "id": "OF-08",
+          "category": "Branding",
+          "title": "Elegir colores y tipografía",
+          "text": "Como oferente, quiero seleccionar una paleta de colores y tipografía dentro de lo permitido para mantener coherencia y accesibilidad."
+        },
+        {
+          "id": "OF-09",
+          "category": "Branding",
+          "title": "Opciones de accesibilidad",
+          "text": "Como oferente, quiero activar opciones de accesibilidad para hacer mi sitio más inclusivo."
+        },
+        {
+          "id": "OF-10",
+          "category": "Products",
+          "title": "CRUD de productos",
+          "text": "Como oferente, quiero crear, editar y eliminar productos para mostrar lo que vendo."
+        },
+        {
+          "id": "OF-11",
+          "category": "Products",
+          "title": "Detalle de producto",
+          "text": "Como oferente, quiero definir título, descripción, precio, imágenes y categoría de mis productos."
+        },
+        {
+          "id": "OF-12",
+          "category": "Products",
+          "title": "Previsualizar producto",
+          "text": "Como oferente, quiero previsualizar un producto antes de publicarlo para verificar cómo se verá."
+        },
+        {
+          "id": "OF-13",
+          "category": "Products",
+          "title": "Orden y destaque de productos",
+          "text": "Como oferente, quiero ordenar y destacar productos para decidir cuáles aparecen primero."
+        },
+        {
+          "id": "OF-14",
+          "category": "Services",
+          "title": "CRUD de servicios",
+          "text": "Como oferente, quiero crear, editar y eliminar servicios para mostrar lo que ofrezco."
+        },
+        {
+          "id": "OF-15",
+          "category": "Services",
+          "title": "Detalle de servicio",
+          "text": "Como oferente, quiero definir título, descripción, precio o rango, duración, imágenes y etiquetas de mis servicios."
+        },
+        {
+          "id": "OF-16",
+          "category": "Services",
+          "title": "Habilitar reservas",
+          "text": "Como oferente, quiero habilitar la opción de reserva o contacto directo en servicios para facilitar agendamiento."
+        },
+        {
+          "id": "OF-17",
+          "category": "Services",
+          "title": "Activar/desactivar servicio",
+          "text": "Como oferente, quiero activar o desactivar temporalmente un servicio sin eliminarlo."
+        },
+        {
+          "id": "OF-18",
+          "category": "News",
+          "title": "Crear publicaciones",
+          "text": "Como oferente, quiero crear publicaciones o noticias para comunicar novedades o promociones."
+        },
+        {
+          "id": "OF-19",
+          "category": "News",
+          "title": "Editar/eliminar publicaciones",
+          "text": "Como oferente, quiero editar o eliminar publicaciones para mantener mi contenido actualizado."
+        },
+        {
+          "id": "OF-20",
+          "category": "News",
+          "title": "Media en publicaciones",
+          "text": "Como oferente, quiero adjuntar imágenes o videos en mis publicaciones para hacerlas más atractivas."
+        },
+        {
+          "id": "OF-21",
+          "category": "News",
+          "title": "Orden de publicaciones",
+          "text": "Como oferente, quiero definir la fecha u orden de mis publicaciones para controlar qué se ve primero."
+        },
+        {
+          "id": "OF-22",
+          "category": "Site",
+          "title": "Configurar secciones",
+          "text": "Como oferente, quiero organizar las secciones de mi sitio para estructurar mi contenido."
+        },
+        {
+          "id": "OF-23",
+          "category": "Site",
+          "title": "Activar/desactivar secciones",
+          "text": "Como oferente, quiero activar o desactivar secciones para mostrar solo lo que necesito."
+        },
+        {
+          "id": "OF-24",
+          "category": "Site",
+          "title": "Orden de secciones",
+          "text": "Como oferente, quiero reordenar las secciones para decidir qué aparece al inicio."
+        },
+        {
+          "id": "OF-25",
+          "category": "Site",
+          "title": "Previsualizar sitio completo",
+          "text": "Como oferente, quiero previsualizar mi sitio completo antes de publicarlo."
+        },
+        {
+          "id": "OF-26",
+          "category": "Site",
+          "title": "Publicar/despublicar sitio",
+          "text": "Como oferente, quiero publicar o despublicar mi sitio completo para controlar su visibilidad."
+        },
+        {
+          "id": "OF-27",
+          "category": "Plans",
+          "title": "Ver plan actual y límites",
+          "text": "Como oferente, quiero ver mi plan actual y sus límites para saber qué puedo usar."
+        },
+        {
+          "id": "OF-28",
+          "category": "Plans",
+          "title": "Cambiar de plan",
+          "text": "Como oferente, quiero actualizar o cambiar de plan para acceder a más funcionalidades."
+        },
+        {
+          "id": "OF-29",
+          "category": "Plans",
+          "title": "Historial de pagos",
+          "text": "Como oferente, quiero ver mi historial de pagos y facturación."
+        },
+        {
+          "id": "OF-30",
+          "category": "Analytics",
+          "title": "Ver métricas básicas",
+          "text": "Como oferente, quiero ver métricas básicas de mi página para evaluar su rendimiento."
+        },
+        {
+          "id": "OF-31",
+          "category": "Analytics",
+          "title": "Filtros de métricas",
+          "text": "Como oferente, quiero filtrar métricas por período de tiempo para analizar tendencias."
+        },
+        {
+          "id": "OF-32",
+          "category": "Support",
+          "title": "Notificaciones",
+          "text": "Como oferente, quiero recibir notificaciones cuando un usuario me envía un mensaje o realiza una reserva."
+        },
+        {
+          "id": "OF-33",
+          "category": "Support",
+          "title": "Centro de ayuda",
+          "text": "Como oferente, quiero acceder a un centro de ayuda para resolver dudas."
+        },
+        {
+          "id": "OF-34",
+          "category": "Support",
+          "title": "Enviar ticket de soporte",
+          "text": "Como oferente, quiero enviar solicitudes de soporte o reportar errores para recibir asistencia."
+        },
+        {
+          "id": "OF-35",
+          "category": "UX",
+          "title": "Vista responsiva",
+          "text": "Como oferente, quiero ver cómo se ve mi sitio en escritorio y móvil."
+        },
+        {
+          "id": "OF-36",
+          "category": "UX",
+          "title": "Clonar componentes",
+          "text": "Como oferente, quiero clonar componentes o elementos para reutilizar contenido."
+        },
+        {
+          "id": "OF-37",
+          "category": "UX",
+          "title": "Guardado de borradores",
+          "text": "Como oferente, quiero guardar borradores de contenido para trabajarlos en varias etapas."
+        },
+        {
+          "id": "OF-38",
+          "category": "UX",
+          "title": "Sugerencias automáticas",
+          "text": "Como oferente, quiero recibir sugerencias automáticas para mejorar mi contenido."
+        },
+        {
+          "id": "OF-39",
+          "category": "Extras",
+          "title": "Colaboradores",
+          "text": "Como oferente, quiero agregar colaboradores a mi espacio para que me ayuden a gestionar el contenido."
+        },
+        {
+          "id": "OF-40",
+          "category": "Extras",
+          "title": "Conectar herramientas externas",
+          "text": "Como oferente, quiero conectar herramientas externas para automatizar o medir mejor mis acciones."
+        },
+        {
+          "id": "OF-41",
+          "category": "Extras",
+          "title": "Dominio personalizado",
+          "text": "Como oferente, quiero usar un dominio personalizado para profesionalizar mi espacio."
+        }
+      ]
+    },
+    {
+      "id": "USUARIO_COMUN",
+      "name": "Usuario Común",
+      "description": "Visitante o cliente final que navega las páginas públicas",
+      "stories": [
+        {
+          "id": "UC-01",
+          "category": "Discovery",
+          "title": "Buscar oferentes",
+          "text": "Como usuario, quiero buscar oferentes por nombre, rubro, ubicación o palabra clave."
+        },
+        {
+          "id": "UC-02",
+          "category": "Discovery",
+          "title": "Ver resultados de búsqueda",
+          "text": "Como usuario, quiero ver una lista de resultados con información básica de cada oferente."
+        },
+        {
+          "id": "UC-03",
+          "category": "Discovery",
+          "title": "Filtrar resultados",
+          "text": "Como usuario, quiero filtrar resultados según criterios como precio, categoría, ubicación o tipo de oferta."
+        },
+        {
+          "id": "UC-04",
+          "category": "Discovery",
+          "title": "Ordenar resultados",
+          "text": "Como usuario, quiero ordenar los resultados por popularidad, cercanía o novedad."
+        },
+        {
+          "id": "UC-05",
+          "category": "Discovery",
+          "title": "Acceder a perfil público",
+          "text": "Como usuario, quiero abrir el perfil público de un oferente para ver en detalle su propuesta."
+        },
+        {
+          "id": "UC-06",
+          "category": "Explore",
+          "title": "Ver identidad del oferente",
+          "text": "Como usuario, quiero ver el logo, colores y presentación del oferente."
+        },
+        {
+          "id": "UC-07",
+          "category": "Explore",
+          "title": "Leer quiénes somos",
+          "text": "Como usuario, quiero leer la sección 'Quiénes somos' del oferente."
+        },
+        {
+          "id": "UC-08",
+          "category": "Explore",
+          "title": "Ver productos y servicios",
+          "text": "Como usuario, quiero ver los productos y servicios ofrecidos con imágenes, precios y descripciones."
+        },
+        {
+          "id": "UC-09",
+          "category": "Explore",
+          "title": "Ver noticias y publicaciones",
+          "text": "Como usuario, quiero ver las noticias o publicaciones recientes de un oferente."
+        },
+        {
+          "id": "UC-10",
+          "category": "Explore",
+          "title": "Ver equipo de trabajo",
+          "text": "Como usuario, quiero ver información del equipo de trabajo del oferente."
+        },
+        {
+          "id": "UC-11",
+          "category": "Explore",
+          "title": "Ver ubicación",
+          "text": "Como usuario, quiero ver la ubicación o mapa del oferente."
+        },
+        {
+          "id": "UC-12",
+          "category": "Explore",
+          "title": "Ver galería ampliada",
+          "text": "Como usuario, quiero poder abrir imágenes o galerías en vista ampliada."
+        },
+        {
+          "id": "UC-13",
+          "category": "Explore",
+          "title": "Navegación fluida por secciones",
+          "text": "Como usuario, quiero navegar entre secciones de la página del oferente sin perder el contexto."
+        },
+        {
+          "id": "UC-14",
+          "category": "Interaction",
+          "title": "Enviar mensaje",
+          "text": "Como usuario, quiero poder enviar un mensaje o consulta al oferente."
+        },
+        {
+          "id": "UC-15",
+          "category": "Interaction",
+          "title": "Reservar servicio",
+          "text": "Como usuario, quiero poder reservar un servicio desde la página si el oferente lo permite."
+        },
+        {
+          "id": "UC-16",
+          "category": "Interaction",
+          "title": "Guardar favoritos",
+          "text": "Como usuario, quiero guardar oferentes o productos como favoritos."
+        },
+        {
+          "id": "UC-17",
+          "category": "Interaction",
+          "title": "Compartir contenido",
+          "text": "Como usuario, quiero compartir el perfil de un oferente o un producto en redes o mensajería."
+        },
+        {
+          "id": "UC-18",
+          "category": "Interaction",
+          "title": "Ver medios de contacto",
+          "text": "Como usuario, quiero ver los medios de contacto directos de un oferente."
+        },
+        {
+          "id": "UC-19",
+          "category": "Trust",
+          "title": "Ver reseñas",
+          "text": "Como usuario, quiero ver reseñas y valoraciones de otros clientes."
+        },
+        {
+          "id": "UC-20",
+          "category": "Trust",
+          "title": "Dejar una reseña",
+          "text": "Como usuario, quiero dejar una reseña o puntuación después de usar un servicio o comprar un producto."
+        },
+        {
+          "id": "UC-21",
+          "category": "Trust",
+          "title": "Ver estado del oferente",
+          "text": "Como usuario, quiero ver si un oferente es destacado, premium o verificado."
+        },
+        {
+          "id": "UC-22",
+          "category": "Accessibility",
+          "title": "Modo accesible",
+          "text": "Como usuario, quiero activar un modo de accesibilidad (alto contraste, texto grande)."
+        },
+        {
+          "id": "UC-23",
+          "category": "Accessibility",
+          "title": "Cambiar idioma",
+          "text": "Como usuario, quiero poder cambiar el idioma de la plataforma."
+        },
+        {
+          "id": "UC-24",
+          "category": "Accessibility",
+          "title": "Responsive",
+          "text": "Como usuario, quiero navegar correctamente desde móvil, tablet o escritorio."
+        },
+        {
+          "id": "UC-25",
+          "category": "Accessibility",
+          "title": "Rendimiento",
+          "text": "Como usuario, quiero que las páginas carguen rápido."
+        },
+        {
+          "id": "UC-26",
+          "category": "Accessibility",
+          "title": "Reportar contenido",
+          "text": "Como usuario, quiero reportar contenido inapropiado o incorrecto."
+        },
+        {
+          "id": "UC-27",
+          "category": "Recommend",
+          "title": "Ver oferentes similares",
+          "text": "Como usuario, quiero ver sugerencias de oferentes similares al que estoy viendo."
+        },
+        {
+          "id": "UC-28",
+          "category": "Recommend",
+          "title": "Recomendaciones personalizadas",
+          "text": "Como usuario, quiero recibir sugerencias personalizadas según mis búsquedas o intereses."
+        },
+        {
+          "id": "UC-29",
+          "category": "Recommend",
+          "title": "Ver secciones destacadas",
+          "text": "Como usuario, quiero ver secciones destacadas como populares, nuevos o cercanos."
+        },
+        {
+          "id": "UC-30",
+          "category": "Privacy",
+          "title": "Navegar sin registro",
+          "text": "Como usuario, quiero poder navegar y explorar oferentes sin tener que registrarme."
+        },
+        {
+          "id": "UC-31",
+          "category": "Privacy",
+          "title": "Ver políticas",
+          "text": "Como usuario, quiero ver la política de privacidad y términos de uso."
+        },
+        {
+          "id": "UC-32",
+          "category": "Privacy",
+          "title": "Registrarme o suscribirme",
+          "text": "Como usuario, quiero tener la opción de registrarme o suscribirme a novedades."
+        }
+      ]
+    }
+  ]
+}
