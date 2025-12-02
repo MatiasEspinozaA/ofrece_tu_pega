@@ -2,30 +2,30 @@
   <!-- Header -->
   <div class="crud-header">
     <div class="crud-title">
-      <h2>{{ config.title }}</h2>
+      <h2>{{ config().title }}</h2>
       <span class="record-count">{{ filteredData().length }} registros</span>
     </div>
 
     <div class="crud-actions">
-      @if (config.showSearch) {
+      @if (config().showSearch) {
         <mat-form-field appearance="outline" class="search-field">
           <mat-icon matPrefix>search</mat-icon>
           <input
             matInput
             placeholder="Buscar..."
-            [(ngModel)]="searchTerm"
-            (ngModelChange)="onSearchChange()"
+            [ngModel]="searchTerm()"
+            (ngModelChange)="onSearchChange($event)"
           />
         </mat-form-field>
       }
 
-      @if (config.showExport) {
+      @if (config().showExport) {
         <button mat-icon-button matTooltip="Exportar" [matMenuTriggerFor]="exportMenu">
           <mat-icon>download</mat-icon>
         </button>
       }
 
-      @if (config.showCreate) {
+      @if (config().showCreate) {
         <button
           mat-raised-button
           color="primary"
@@ -48,7 +48,7 @@
       class="crud-table"
     >
       <!-- Dynamic Columns -->
-      @for (column of config.columns; track column.key) {
+      @for (column of config().columns; track column.key) {
         <ng-container [matColumnDef]="column.key.toString()">
           <th
             mat-header-cell
@@ -87,7 +87,7 @@
                 </mat-chip>
               }
               @case ('date') {
-                {{ formatCellValue(row, column) || (getCellValue(row, column.key) | date:'dd/MM/yyyy') }}
+                {{ formatCellValue(row, column) }}
               }
               @default {
                 {{ formatCellValue(row, column) || getCellValue(row, column.key) }}
@@ -105,7 +105,7 @@
           </th>
           <td mat-cell *matCellDef="let row" style="text-align: center">
             <div class="action-buttons">
-              @if (config.showEdit) {
+              @if (config().showEdit) {
                 <button
                   mat-icon-button
                   color="primary"
@@ -116,7 +116,7 @@
                 </button>
               }
 
-              @if (config.showDelete) {
+              @if (config().showDelete) {
                 <button
                   mat-icon-button
                   color="warn"
@@ -127,8 +127,8 @@
                 </button>
               }
 
-              @if (config.actions && config.actions.length > 0) {
-                @for (action of config.actions; track action.label) {
+              @if (config().actions && config().actions!.length > 0) {
+                @for (action of config().actions; track action.label) {
                   @if (!action.show || action.show(row)) {
                     <button
                       mat-icon-button
@@ -146,15 +146,15 @@
         </ng-container>
       }
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table-row"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns()" class="table-row"></tr>
 
       <!-- Empty State -->
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell empty-state" [attr.colspan]="displayedColumns.length">
+        <td class="mat-cell empty-state" [attr.colspan]="displayedColumns().length">
           <div class="empty-content">
             <mat-icon>inbox</mat-icon>
-            <p>{{ config.emptyMessage || 'No hay registros para mostrar' }}</p>
+            <p>{{ config().emptyMessage || 'No hay registros para mostrar' }}</p>
           </div>
         </td>
       </tr>
@@ -162,11 +162,11 @@
   </div>
 
   <!-- Paginator -->
-  @if (data.length > (config.defaultPageSize || 10)) {
+  @if (data().length > (config().defaultPageSize || 10)) {
     <mat-paginator
       [length]="filteredData().length"
-      [pageSize]="pageSize"
-      [pageSizeOptions]="config.pageSizeOptions || [5, 10, 25, 50]"
+      [pageSize]="pageSize()"
+      [pageSizeOptions]="config().pageSizeOptions || [5, 10, 25, 50]"
       (page)="onPageChange($event)"
       showFirstLastButtons
     >

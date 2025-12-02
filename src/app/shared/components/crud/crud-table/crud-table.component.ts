@@ -1,5 +1,15 @@
 // Generic CRUD Table Component
-import { Component, Input, Output, EventEmitter, signal, computed } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  signal,
+  computed,
+  OnInit,
+  ChangeDetectionStrategy,
+  input,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -12,7 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
-import { CrudColumn, CrudAction, CrudConfig } from './crud-table.types';
+import { CrudColumn, CrudConfig } from './crud-table.types';
 
 @Component({
   selector: 'app-crud-table',
@@ -33,44 +43,56 @@ import { CrudColumn, CrudAction, CrudConfig } from './crud-table.types';
   ],
   templateUrl: './crud-table.component.html',
   styleUrl: './crud-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CrudTableComponent<T = any> {
-  @Input({ required: true }) config!: CrudConfig<T>;
-  @Input({ required: true }) data: T[] = [];
+export class CrudTableComponent<T = unknown> implements OnInit {
+  // Input signals for reactive data binding
+  readonly config = input.required<CrudConfig<T>>();
+  readonly data = input.required<T[]>();
 
   @Output() onCreate = new EventEmitter<void>();
   @Output() onEdit = new EventEmitter<T>();
   @Output() onDelete = new EventEmitter<T>();
   @Output() onView = new EventEmitter<T>();
 
-  searchTerm = '';
-  pageSize = 10;
-  pageIndex = 0;
-  sortColumn = '';
-  sortDirection: 'asc' | 'desc' = 'asc';
+  // Internal state as signals
+  readonly searchTerm = signal('');
+  readonly pageSize = signal(10);
+  readonly pageIndex = signal(0);
+  readonly sortColumn = signal('');
+  readonly sortDirection = signal<'asc' | 'desc'>('asc');
 
-  filteredData = computed(() => {
-    let filtered = [...this.data];
+  // Computed: filtered data based on search and sort
+  readonly filteredData = computed(() => {
+    let filtered = [...this.data()];
+    const config = this.config();
+    const term = this.searchTerm();
+    const sortCol = this.sortColumn();
+    const sortDir = this.sortDirection();
 
     // Apply search filter
-    if (this.searchTerm) {
-      const term = this.searchTerm.toLowerCase();
-      filtered = filtered.filter((row: any) =>
-        this.config.columns.some(col => {
+    if (term) {
+      const searchLower = term.toLowerCase();
+      filtered = filtered.filter((row: T) =>
+        config.columns.some(col => {
           const value = this.getCellValue(row, col.key);
-          return value?.toString().toLowerCase().includes(term);
+          return value?.toString().toLowerCase().includes(searchLower);
         })
       );
     }
 
     // Apply sorting
-    if (this.sortColumn) {
-      filtered.sort((a: any, b: any) => {
-        const aVal = this.getCellValue(a, this.sortColumn);
-        const bVal = this.getCellValue(b, this.sortColumn);
+    if (sortCol) {
+      filtered.sort((a: T, b: T) => {
+        const aVal = this.getCellValue(a, sortCol) as string | number | null;
+        const bVal = this.getCellValue(b, sortCol) as string | number | null;
 
-        if (aVal < bVal) return this.sortDirection === 'asc' ? -1 : 1;
-        if (aVal > bVal) return this.sortDirection === 'asc' ? 1 : -1;
+        if (aVal == null && bVal == null) return 0;
+        if (aVal == null) return sortDir === 'asc' ? 1 : -1;
+        if (bVal == null) return sortDir === 'asc' ? -1 : 1;
+
+        if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
+        if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
         return 0;
       });
     }
@@ -78,56 +100,79 @@ export class CrudTableComponent<T = any> {
     return filtered;
   });
 
-  paginatedData = computed(() => {
-    const start = this.pageIndex * this.pageSize;
-    const end = start + this.pageSize;
+  // Computed: paginated data
+  readonly paginatedData = computed(() => {
+    const start = this.pageIndex() * this.pageSize();
+    const end = start + this.pageSize();
     return this.filteredData().slice(start, end);
   });
 
-  get displayedColumns(): string[] {
-    const columns = this.config.columns.map(col => col.key.toString());
+  // Computed: displayed columns
+  readonly displayedColumns = computed(() => {
+    const columns = this.config().columns.map(col => col.key.toString());
     if (this.hasActions()) {
       columns.push('actions');
     }
     return columns;
-  }
+  });
 
   ngOnInit(): void {
-    this.pageSize = this.config.defaultPageSize || 10;
+    const defaultPageSize = this.config().defaultPageSize;
+    if (defaultPageSize) {
+      this.pageSize.set(defaultPageSize);
+    }
   }
 
   hasActions(): boolean {
+    const config = this.config();
     return !!(
-      this.config.showEdit ||
-      this.config.showDelete ||
-      (this.config.actions && this.config.actions.length > 0)
+      config.showEdit ||
+      config.showDelete ||
+      (config.actions && config.actions.length > 0)
     );
   }
 
-  getCellValue(row: any, key: string | keyof T): any {
+  getCellValue(row: T, key: string | keyof T): unknown {
     if (typeof key === 'string' && key.includes('.')) {
-      return key.split('.').reduce((obj, k) => obj?.[k], row);
+      return key.split('.').reduce((obj: unknown, k: string) => {
+        if (obj && typeof obj === 'object') {
+          return (obj as Record<string, unknown>)[k];
+        }
+        return undefined;
+      }, row);
     }
-    return row[key];
+    return (row as Record<string, unknown>)[key as string];
   }
 
   formatCellValue(row: T, column: CrudColumn<T>): string {
     const value = this.getCellValue(row, column.key);
-    return column.format ? column.format(value, row) : value;
+
+    if (column.format) {
+      return column.format(value, row);
+    }
+
+    // Default formatting for date type
+    if (column.type === 'date' && value) {
+      const date = value instanceof Date ? value : new Date(value as string | number);
+      return date.toLocaleDateString('es-CL');
+    }
+
+    return String(value ?? '');
   }
 
-  onSearchChange(): void {
-    this.pageIndex = 0;
+  onSearchChange(term: string): void {
+    this.searchTerm.set(term);
+    this.pageIndex.set(0);
   }
 
   onSortChange(sort: Sort): void {
-    this.sortColumn = sort.active;
-    this.sortDirection = sort.direction as 'asc' | 'desc';
+    this.sortColumn.set(sort.active);
+    this.sortDirection.set(sort.direction as 'asc' | 'desc');
   }
 
   onPageChange(event: PageEvent): void {
-    this.pageSize = event.pageSize;
-    this.pageIndex = event.pageIndex;
+    this.pageSize.set(event.pageSize);
+    this.pageIndex.set(event.pageIndex);
   }
 
   exportToCSV(): void {
@@ -141,10 +186,10 @@ export class CrudTableComponent<T = any> {
   }
 
   private convertToCSV(data: T[]): string {
-    const headers = this.config.columns.map(col => col.label).join(',');
+    const headers = this.config().columns.map(col => col.label).join(',');
     const rows = data.map(row =>
-      this.config.columns
-        .map(col => {
+      this.config()
+        .columns.map(col => {
           const value = this.formatCellValue(row, col) || this.getCellValue(row, col.key);
           return `"${value}"`;
         })

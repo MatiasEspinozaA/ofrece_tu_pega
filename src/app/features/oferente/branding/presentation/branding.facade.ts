@@ -4,7 +4,8 @@ import { BrandingStore } from './branding.store';
 import { LoadThemePreferencesUseCase } from '../application/load-theme-preferences.use-case';
 import { SaveThemePreferencesUseCase } from '../application/save-theme-preferences.use-case';
 import { ApplyThemeUseCase } from '../application/apply-theme.use-case';
-import { ThemeId, ThemeMode, FontFamily } from '../domain/entities';
+import { GetThemeDefinitionsUseCase } from '../application/get-theme-definitions.use-case';
+import { ThemeId, ThemeMode, FontFamily, ThemeDefinition } from '../domain/entities';
 
 // ViewModel exposes signals that can be used directly in templates
 export type BrandingViewModel = {
@@ -13,6 +14,9 @@ export type BrandingViewModel = {
   readonly fontFamily: BrandingStore['fontFamily'];
   readonly state: BrandingStore['state'];
   readonly isDarkMode: BrandingStore['isDarkMode'];
+  readonly themeIds: BrandingStore['themeIds'];
+  readonly themeDefinitions: BrandingStore['themeDefinitions'];
+  readonly fontOptions: BrandingStore['fontOptions'];
 };
 
 @Injectable({
@@ -26,7 +30,8 @@ export class BrandingFacade {
     private readonly store: BrandingStore,
     private readonly loadPreferencesUseCase: LoadThemePreferencesUseCase,
     private readonly savePreferencesUseCase: SaveThemePreferencesUseCase,
-    private readonly applyThemeUseCase: ApplyThemeUseCase
+    private readonly applyThemeUseCase: ApplyThemeUseCase,
+    private readonly getThemeDefinitionsUseCase: GetThemeDefinitionsUseCase
   ) {
     this.vm = {
       theme: this.store.theme,
@@ -34,7 +39,13 @@ export class BrandingFacade {
       fontFamily: this.store.fontFamily,
       state: this.store.state,
       isDarkMode: this.store.isDarkMode,
+      themeIds: this.store.themeIds,
+      themeDefinitions: this.store.themeDefinitions,
+      fontOptions: this.store.fontOptions,
     };
+
+    // Load theme definitions on init
+    this.loadThemeDefinitions();
 
     // Load preferences on init
     this.loadPreferences();
@@ -45,6 +56,15 @@ export class BrandingFacade {
       this.applyTheme();
       this.savePreferences();
     });
+  }
+
+  /**
+   * Load theme definitions (themes and fonts)
+   */
+  private loadThemeDefinitions(): void {
+    const { themes, fonts } = this.getThemeDefinitionsUseCase.execute();
+    this.store.setThemeDefinitions(themes);
+    this.store.setFontOptions(fonts);
   }
 
   /**
@@ -136,5 +156,12 @@ export class BrandingFacade {
    */
   getFont(): FontFamily {
     return this.store.fontFamily();
+  }
+
+  /**
+   * Get theme definition by ID
+   */
+  getThemeById(id: ThemeId): ThemeDefinition | undefined {
+    return this.store.getThemeById(id);
   }
 }

@@ -1,21 +1,24 @@
 /**
  * Branding Theme Picker Component
  * Main page for theme selection and customization
+ *
+ * Follows Clean Architecture:
+ * - Gets all data through the Facade (no direct infrastructure imports)
+ * - Uses ViewModel signals for reactive UI
  */
 
-import { Component, OnInit, signal, computed, inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { BrandingFacade } from '../branding.facade';
-import { getAllThemeIds, getThemeById, getAllFonts } from '../../infrastructure/theme-definitions.repository';
-import { ThemeCardComponent } from '../components/theme-card/theme-card.component';
-import { ThemeId, FontFamily } from '../../domain/entities';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrandingFacade } from '../branding.facade';
+import { ThemeCardComponent } from '../components/theme-card/theme-card.component';
+import { ThemeId, FontFamily } from '../../domain/entities';
 
 // i18n texts (ready for ngx-translate)
 const BRANDING_I18N = {
@@ -45,6 +48,7 @@ const BRANDING_I18N = {
   ],
   templateUrl: './branding-theme-picker.component.html',
   styleUrl: './branding-theme-picker.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrandingThemePickerComponent implements OnInit {
   private readonly facade = inject(BrandingFacade);
@@ -52,11 +56,11 @@ export class BrandingThemePickerComponent implements OnInit {
   // i18n
   readonly i18n = BRANDING_I18N;
 
-  // Theme IDs
-  readonly themeIds = getAllThemeIds();
+  // Theme IDs from Facade ViewModel (reactive)
+  readonly themeIds = this.facade.vm.themeIds;
 
-  // Font Options
-  readonly fontOptions = getAllFonts();
+  // Font Options from Facade ViewModel (reactive)
+  readonly fontOptions = this.facade.vm.fontOptions;
 
   // Current state from facade
   readonly currentTheme = this.facade.vm.theme;
@@ -74,7 +78,7 @@ export class BrandingThemePickerComponent implements OnInit {
    * Get theme definition by ID
    */
   getTheme(id: ThemeId) {
-    return getThemeById(id);
+    return this.facade.getThemeById(id);
   }
 
   /**

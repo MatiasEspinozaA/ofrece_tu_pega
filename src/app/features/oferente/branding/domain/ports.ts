@@ -1,7 +1,7 @@
 // Domain ports - Interfaces that define contracts with external layers
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ThemeId, ThemeMode, ThemeState, FontFamily, ThemeDefinition } from './entities';
+import { ThemeId, ThemeMode, ThemeState, FontFamily, ThemeDefinition, FontOption } from './entities';
 
 /**
  * Repository for theme preferences persistence
@@ -25,6 +25,7 @@ export interface IThemeApplicator {
 export interface IThemeDefinitionsRepository {
   getAllThemes(): ThemeDefinition[];
   getThemeById(id: ThemeId): ThemeDefinition | undefined;
+  getAllFonts(): readonly FontOption[];
 }
 
 export const THEME_PREFERENCES_REPOSITORY = new InjectionToken<IThemePreferencesRepository>(

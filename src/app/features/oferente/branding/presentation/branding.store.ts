@@ -1,6 +1,6 @@
 // Store: State management using Angular Signals for Branding
 import { Injectable, signal, computed } from '@angular/core';
-import { ThemeId, ThemeMode, ThemeState, FontFamily } from '../domain/entities';
+import { ThemeId, ThemeMode, ThemeState, FontFamily, ThemeDefinition, FontOption } from '../domain/entities';
 
 const DEFAULTS: ThemeState = {
   theme: 'violet',
@@ -14,11 +14,15 @@ export class BrandingStore {
   private readonly _theme = signal<ThemeId>(DEFAULTS.theme);
   private readonly _mode = signal<ThemeMode>(DEFAULTS.mode);
   private readonly _fontFamily = signal<FontFamily>(DEFAULTS.fontFamily);
+  private readonly _themeDefinitions = signal<ThemeDefinition[]>([]);
+  private readonly _fontOptions = signal<readonly FontOption[]>([]);
 
   // Public readonly signals
   readonly theme = this._theme.asReadonly();
   readonly mode = this._mode.asReadonly();
   readonly fontFamily = this._fontFamily.asReadonly();
+  readonly themeDefinitions = this._themeDefinitions.asReadonly();
+  readonly fontOptions = this._fontOptions.asReadonly();
 
   // Computed state
   readonly state = computed<ThemeState>(() => ({
@@ -28,6 +32,14 @@ export class BrandingStore {
   }));
 
   readonly isDarkMode = computed(() => this._mode() === 'dark');
+
+  // Computed: Theme IDs for iteration
+  readonly themeIds = computed(() => this._themeDefinitions().map(t => t.id));
+
+  // Computed: Get current theme definition
+  readonly currentThemeDefinition = computed(() =>
+    this._themeDefinitions().find(t => t.id === this._theme())
+  );
 
   // State mutations
   setTheme(themeId: ThemeId): void {
@@ -56,5 +68,17 @@ export class BrandingStore {
     this._theme.set(DEFAULTS.theme);
     this._mode.set(DEFAULTS.mode);
     this._fontFamily.set(DEFAULTS.fontFamily);
+  }
+
+  setThemeDefinitions(definitions: ThemeDefinition[]): void {
+    this._themeDefinitions.set(definitions);
+  }
+
+  setFontOptions(fonts: readonly FontOption[]): void {
+    this._fontOptions.set(fonts);
+  }
+
+  getThemeById(id: ThemeId): ThemeDefinition | undefined {
+    return this._themeDefinitions().find(t => t.id === id);
   }
 }

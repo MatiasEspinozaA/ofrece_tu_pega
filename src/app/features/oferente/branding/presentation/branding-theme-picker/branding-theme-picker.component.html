@@ -23,7 +23,7 @@
                 (selectionChange)="setFont($event.value)"
                 [matTooltip]="i18n.fontHint"
               >
-                @for (font of fontOptions; track font.id) {
+                @for (font of fontOptions(); track font.id) {
                   <mat-option [value]="font.id">
                     <span class="font-option" [style.font-family]="font.cssValue">
                       {{ font.name }}
@@ -64,15 +64,17 @@
           role="radiogroup"
           [attr.aria-label]="i18n.themesSection"
         >
-          @for (themeId of themeIds; track themeId) {
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-              <app-theme-card
-                [theme]="getTheme(themeId)"
-                [mode]="currentMode()"
-                [isActive]="currentTheme() === themeId"
-                (selectTheme)="selectTheme($event)"
-              />
-            </div>
+          @for (themeId of themeIds(); track themeId) {
+            @if (getTheme(themeId); as theme) {
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <app-theme-card
+                  [theme]="theme"
+                  [mode]="currentMode()"
+                  [isActive]="currentTheme() === themeId"
+                  (selectTheme)="selectTheme($event)"
+                />
+              </div>
+            }
           }
         </div>
       </div>

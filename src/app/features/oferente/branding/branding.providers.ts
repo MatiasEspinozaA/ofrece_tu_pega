@@ -4,11 +4,14 @@ import { BrandingStore } from './presentation/branding.store';
 import { LoadThemePreferencesUseCase } from './application/load-theme-preferences.use-case';
 import { SaveThemePreferencesUseCase } from './application/save-theme-preferences.use-case';
 import { ApplyThemeUseCase } from './application/apply-theme.use-case';
+import { GetThemeDefinitionsUseCase } from './application/get-theme-definitions.use-case';
 import { LocalStorageThemePreferencesRepository } from './infrastructure/localstorage-theme-preferences.repository';
 import { DomThemeApplicator } from './infrastructure/dom-theme.applicator';
+import { StaticThemeDefinitionsRepository } from './infrastructure/theme-definitions.repository';
 import {
   THEME_PREFERENCES_REPOSITORY,
   THEME_APPLICATOR,
+  THEME_DEFINITIONS_REPOSITORY,
 } from './domain/ports';
 
 /**
@@ -24,6 +27,7 @@ export function provideBranding(): EnvironmentProviders {
     LoadThemePreferencesUseCase,
     SaveThemePreferencesUseCase,
     ApplyThemeUseCase,
+    GetThemeDefinitionsUseCase,
 
     // Infrastructure - bind to tokens
     {
@@ -33,6 +37,10 @@ export function provideBranding(): EnvironmentProviders {
     {
       provide: THEME_APPLICATOR,
       useClass: DomThemeApplicator,
+    },
+    {
+      provide: THEME_DEFINITIONS_REPOSITORY,
+      useClass: StaticThemeDefinitionsRepository,
     },
   ]);
 }

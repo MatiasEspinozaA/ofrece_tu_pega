@@ -432,4 +432,8 @@ export class StaticThemeDefinitionsRepository implements IThemeDefinitionsReposi
   getThemeById(id: ThemeId): ThemeDefinition | undefined {
     return THEME_DEFINITIONS[id];
   }
+
+  getAllFonts(): readonly FontOption[] {
+    return FONT_OPTIONS;
+  }
 }
